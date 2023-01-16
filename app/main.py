@@ -30,8 +30,8 @@ app.include_router(auth.router)
 app.include_router(vote.router)
 @app.get("/")
 def root():
-    return {"message": "Hello world!!!!"}
+    return {"message": "Welcome to Leo's API"}
 
 
 
-#12.55
+#13.11
