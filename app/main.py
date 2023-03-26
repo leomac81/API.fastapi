@@ -30,7 +30,7 @@ app.include_router(auth.router)
 app.include_router(vote.router)
 @app.get("/")
 def root():
-    return {"message": "Hi, welcome to my api"}
+    return {"message": "I have dockerised this api!"}
 
 
 
