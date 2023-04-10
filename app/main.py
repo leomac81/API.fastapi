@@ -1,5 +1,6 @@
 
 from fastapi import FastAPI
+from fastapi.testclient import TestClient
 from . import models
 from .database import engine
 from passlib.context import CryptContext
