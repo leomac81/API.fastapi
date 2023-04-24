@@ -1,7 +1,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const cellSize = 10;
-const gridSize = 50;
+const gridSize = 100;
 let grid = generateRandomGrid(gridSize);
 
 document.getElementById('startButton').addEventListener('click', startGame);
