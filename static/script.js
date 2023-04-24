@@ -65,24 +65,22 @@ function getNextGrid(grid) {
 function countAliveNeighbors(grid, i, j) {
     const directions = [
         [-1, -1], [-1, 0], [-1, 1],
-        [0, -1], [0, 0],
-        [0, 1],
+        [0, -1],           [0, 1],
         [1, -1], [1, 0], [1, 1],
     ];
 
     let count = 0;
 
     directions.forEach(([di, dj]) => {
-        const ni = i + di;
-        const nj = j + dj;
+        const ni = (i + di + gridSize) % gridSize;
+        const nj = (j + dj + gridSize) % gridSize;
 
-        if (ni >= 0 && ni < gridSize && nj >= 0 && nj < gridSize) {
-            count += grid[ni][nj] ? 1 : 0;
-        }
+        count += grid[ni][nj] ? 1 : 0;
     });
 
     return count;
 }
+
 
 function countAliveCells(grid) {
     let count = 0;
