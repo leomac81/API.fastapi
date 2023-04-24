@@ -1,6 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const cellSize = 10;
+const cellSize = 5;
 const gridSize = 100;
 let grid = generateRandomGrid(gridSize);
 
