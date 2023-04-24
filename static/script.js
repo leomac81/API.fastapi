@@ -1,6 +1,11 @@
 const canvas = document.getElementById('gameCanvas');
+const smallerDimension = Math.min(window.innerWidth, window.innerHeight);
+canvas.width = smallerDimension * 0.7;
+canvas.height = smallerDimension * 0.7;
+
 const ctx = canvas.getContext('2d');
 const cellSize = canvas.width / 100;
+
 const gridSize = 100;
 let grid = generateRandomGrid(gridSize);
 let colorPhase = 0;
