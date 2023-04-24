@@ -1,10 +1,16 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const cellSize = 10;
+const cellSize = canvas.width / 100;
 const gridSize = 100;
 let grid = generateRandomGrid(gridSize);
+let colorPhase = 0;
 
-document.getElementById('startButton').addEventListener('click', startGame);
+document.getElementById('startButton').onclick = startButtonClicked;
+
+function startButtonClicked() {
+    document.getElementById('startButton').style.display = 'none';
+    startGame();
+}
 
 function startGame() {
     let iterations = 0;
@@ -15,6 +21,7 @@ function startGame() {
         const newGrid = getNextGrid(grid);
         const aliveCells = countAliveCells(newGrid);
 
+        colorPhase = (colorPhase + 1) % 360; // Update color phase
         if (aliveCells === lastAliveCells) {
             unchangedIterations++;
         } else {
@@ -35,12 +42,22 @@ function drawGrid(grid) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     grid.forEach((row, i) => {
         row.forEach((cell, j) => {
-            ctx.fillStyle = cell ? 'black' : 'white';
+
+            ctx.fillStyle = cell ? getRainbowColor(colorPhase) : 'white';
             ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
             ctx.strokeStyle = 'lightgray';
             ctx.strokeRect(j * cellSize, i * cellSize, cellSize, cellSize);
         });
     });
+}
+
+function getRainbowColor(phase) {
+    const frequency = 0.05;
+    const red   = Math.sin(frequency * phase + 0) * 127 + 128;
+    const green = Math.sin(frequency * phase + 2 * Math.PI / 3) * 127 + 128;
+    const blue  = Math.sin(frequency * phase + 4 * Math.PI / 3) * 127 + 128;
+
+    return `rgb(${red}, ${green}, ${blue})`;
 }
 
 function generateRandomGrid(size) {
