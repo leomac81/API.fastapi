@@ -7,11 +7,20 @@ on:
 
 jobs:
   job1:
+    env: 
+      DATABASE_HOSTNAME: localhost
+      DATABASE_PORT: 5432
+      DATABASE_PASSWORD: galaxyr_juvination
+      DATABASE_NAME: fastapi
+      DATABASE_USERNAME: postgres
+      SECRET_KEY: 23456789876RDTYF8SDF7D6S54GRTS7F8ADG7S6Sf38wi7garist4irufk3w
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 120
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
         uses: actions/checkout@v3
-      - name: intealling python version 3.9
+      - name: intalling python version 3.9
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
