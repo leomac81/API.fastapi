@@ -6,7 +6,7 @@ on:
       - "main"
 
 jobs:
-  job1:
+  build:
     environment:
       name: Testing
     env:
@@ -64,4 +64,17 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+      - name : deployment
+        run: echo "going to deploy some stuff"
+        
+
+
+  
+
 #check versions
