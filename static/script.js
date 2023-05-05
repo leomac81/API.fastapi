@@ -64,7 +64,7 @@ function redirectToApiDocs() {
 document.getElementById('login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
   
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('username').value;
     const password = document.getElementById('password').value;
   
     try {
