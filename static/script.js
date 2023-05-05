@@ -3,27 +3,36 @@ function redirectToApiDocs() {
   }
   
 // Authenticate the user and get the access token
-async function login(username, password) {
-    const formData = new FormData();
-    formData.append('username', username);
-    formData.append('password', password);
-    formData.append('grant_type', 'password'); // grant_type is required for OAuth2PasswordRequestForm
+async function login(event) {
+    event.preventDefault();
   
-    const response = await fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams(formData),
-    });
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
   
-    if (!response.ok) {
-      throw new Error('Login failed');
+    try {
+      const response = await fetch('http://www.leoapi.xyz/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&grant_type=password`
+      });
+  
+      if (response.status === 200) {
+        const data = await response.json();
+        localStorage.setItem('access_token', data.access_token);
+        fetchPosts();
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('login-error').style.display = 'none'; // Hide the login error message
+      } else {
+        throw new Error('Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      document.getElementById('login-error').style.display = 'block';
     }
-  
-    const data = await response.json();
-    return data.access_token;
   }
+  
   
   
   // Fetch the posts data from the API
@@ -88,14 +97,19 @@ async function login(username, password) {
       const votes = postObj.votes;
   
       const postDiv = document.createElement('div');
+      postDiv.style.border = '1px solid lightgrey';
+      postDiv.style.borderRadius = '5px';
+      postDiv.style.padding = '10px';
+      postDiv.style.marginBottom = '10px';
       postDiv.innerHTML = `
-        <h2>${post.title}</h2>
-        <p>${post.content}</p>
-        <p>Votes: ${votes}</p>
+        <h4>${post.title}</h4>
+        <p style="font-size: small;">${post.content}</p>
+        <p style="font-size: small;">Votes: ${votes}</p>
       `;
   
       postsContainer.appendChild(postDiv);
     }
   }
+  
   
   
