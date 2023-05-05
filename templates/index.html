@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leo's Game of Life</title>
-    <link rel="stylesheet" href="/static/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+  <title>Leo Macintyre - Software Engineer</title>
 </head>
 <body>
-    <canvas id="gameCanvas" width="700" height="700"></canvas>
-    <button id="startButton" onclick="startButtonClicked()">Start Game</button>
-    <script src="/static/script.js"></script>
+  <div class="container">
+    <a href="https://github.com/leomac81/API.fastapi" class="title-link">
+      <h1 class="title">Leo Macintyre - Software Engineer</h1>
+    </a>
+    <div class="poem-box">
+      <p>A dreamer's code, a poet's rhyme,</p>
+      <p>Through endless loops of space and time.</p>
+      <p>With every function, class, and byte,</p>
+      <p>Together we create the light.</p>
+    </div>
+    <button class="api-button" onclick="redirectToApiDocs()">
+      Try out the API!
+    </button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@ services:
       - SECRET_KEY=23456789876RDTYF8SDF7D6S54GRTS7F8ADG7S6Sf38wi7garist4irufk3w
       - ALGORITHM=HS256
       - ACCESS_TOKEN_EXPIRE_MINUTES=30
-
+ 
   postgres:
     image: postgres
     environment:
