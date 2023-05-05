@@ -40,6 +40,7 @@ function redirectToApiDocs() {
   
   // Render the list of posts on the webpage
   async function renderPosts(accessToken) {
+    console.log('Rendering posts:', posts);
     const postsContainer = document.getElementById('posts-container');
     const posts = await fetchPosts(accessToken);
   
