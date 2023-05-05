@@ -25,7 +25,43 @@
         <br>
         <input type="submit" value="Login">
       </form>
-      
+    <!-- Move the Create User button before the login form -->
+<button id="create-user-button" onclick="displayCreateUserForm()">Create User</button>
+
+<!-- Add these forms inside the <body> tag after the login form -->
+<form id="create-user-form" class="hidden">
+  <label for="create-user-username">Username</label>
+  <input id="create-user-username" type="text" />
+  <label for="create-user-password">Password</label>
+  <input id="create-user-password" type="password" />
+  <button type="submit">Create User</button>
+</form>
+
+<form id="create-post-form" class="hidden">
+  <label for="create-post-title">Title</label>
+  <input id="create-post-title" type="text" />
+  <label for="create-post-content">Content</label>
+  <textarea id="create-post-content"></textarea>
+  <button type="submit">Create Post</button>
+</form>
+
+<form id="get-user-form" class="hidden">
+  <label for="get-user-id">User ID</label>
+  <input id="get-user-id" type="number" />
+  <button type="submit">Get User</button>
+</form>
+
+<form id="vote-form" class="hidden">
+  <label for="vote-post-id">Post ID</label>
+  <input id="vote-post-id" type="number" />
+  <label for="vote-dir">Direction</label>
+  <select id="vote-dir">
+    <option value="1">Upvote</option>
+    <option value="-1">Downvote</option>
+  </select>
+  <button type="submit">Vote</button>
+</form>
+
 <!-- Add these buttons inside the <body> tag after the login form -->
     <button id="create-post-button" class="hidden" onclick="displayCreatePostForm()">Create Post</button>
     <button id="get-user-button" class="hidden" onclick="getUser()">Get User</button>

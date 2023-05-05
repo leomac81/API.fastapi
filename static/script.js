@@ -102,77 +102,151 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
   }
 
 
-  // Add these functions for each API call
+  // Event listeners for displaying forms
+document.getElementById('create-user-btn').addEventListener('click', () => {
+  displayForm('create-user-form');
+});
 
-async function createUser(user) {
-    const response = await fetch('/users/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-  
-    if (!response.ok) {
-      throw new Error('Failed to create user');
-    }
-  
-    const newUser = await response.json();
-    console.log('Created user:', newUser);
-    return newUser;
-  }
-  
-  async function getUser(id) {
-    const accessToken = localStorage.getItem('access_token');
-    const response = await fetch(`/users/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
-    });
-  
-    if (!response.ok) {
-      throw new Error('Failed to get user');
-    }
-  
-    const user = await response.json();
-    console.log('Fetched user:', user);
-    return user;
-  }
-  
-  // Update the login form submission handling
-  document.getElementById('login-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-  
-    const email = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-  
-    try {
-      const accessToken = await login(email, password);
-      const posts = await fetchPosts(accessToken);
-      displayPosts(posts);
-  
-      // Hide login form and display the new buttons
-      document.getElementById('login-form').classList.add('hidden');
-      document.getElementById('create-post-button').classList.remove('hidden');
-      document.getElementById('get-user-button').classList.remove('hidden');
-      document.getElementById('create-user-button').classList.remove('hidden');
-      document.getElementById('vote-button').classList.remove('hidden');
-    } catch (error) {
-      alert('Login failed. Please check your credentials and try again.');
-    }
+document.getElementById('create-post-btn').addEventListener('click', () => {
+  displayForm('create-post-form');
+});
+
+document.getElementById('get-user-btn').addEventListener('click', () => {
+  displayForm('get-user-form');
+});
+
+document.getElementById('vote-btn').addEventListener('click', () => {
+  displayForm('vote-form');
+});
+
+function displayForm(formId) {
+  document.querySelectorAll('.form-container').forEach((form) => {
+    form.style.display = 'none';
   });
-  
-  // Add the display functions for forms
-  function displayCreatePostForm() {
-    // Display the form for creating a new post
+  document.getElementById(formId).style.display = 'block';
+}
+
+// Event listeners for form submissions
+document.getElementById('create-user-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById('create-user-email').value;
+  const password = document.getElementById('create-user-password').value;
+
+  try {
+    const newUser = await createUser({ email: email, password: password });
+    alert(`User created with ID: ${newUser.id}`);
+  } catch (error) {
+    alert('Failed to create user');
   }
-  
-  function displayCreateUserForm() {
-    // Display the form for creating a new user
+});
+
+document.getElementById('create-post-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const title = document.getElementById('create-post-title').value;
+  const content = document.getElementById('create-post-content').value;
+  const published = document.getElementById('create-post-published').checked;
+
+  try {
+    const newPost = await createPost({ title: title, content: content, published: published });
+    alert(`Post created with ID: ${newPost.id}`);
+  } catch (error) {
+    alert('Failed to create post');
   }
-  
-  function displayVoteForm() {
-    // Display the form for voting
+});
+
+document.getElementById('get-user-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const userId = document.getElementById('get-user-id').value;
+
+  try {
+    const user = await getUser(userId);
+    alert(`User ID: ${user.id}, Email: ${user.email}`);
+  } catch (error) {
+    alert('Failed to get user');
   }
-  
-  
+});
+
+document.getElementById('vote-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const postId = document.getElementById('vote-post-id').value;
+  const dir = document.getElementById('vote-dir').value;
+
+  try {
+    const response = await vote({ post_id: postId, dir: parseInt(dir) });
+    alert(`Vote action: ${response.message}`);
+  } catch (error) {
+    alert('Failed to perform vote action');
+  }
+});
+
+// Implement the API calls for each action
+async function createUser(userData) {
+  const response = await fetch('/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return await response.json();
+}
+
+async function createPost(postData) {
+  const response = await fetch('/posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    },
+    body: JSON.stringify(postData),
+  });
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return await response.json();
+}
+
+async function getUser(id) {
+  const response = await fetch(`/users/${id}`, {
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user');
+  }
+
+  const user = await response.json();
+  console.log('Fetched user:', user);
+  return user;
+}
+
+async function vote(postId, direction) {
+  const response = await fetch('/vote/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+    },
+    body: JSON.stringify({
+      post_id: postId,
+      dir: direction,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to vote');
+  }
+
+  const result = await response.json();
+  console.log('Vote result:', result);
+  return result;
+}
