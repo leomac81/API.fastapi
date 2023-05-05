@@ -10,7 +10,7 @@ async function login(event) {
     const password = document.getElementById('password').value;
   
     try {
-      const response = await fetch('http://www.leoapi.xyz/login', {
+      const response = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
