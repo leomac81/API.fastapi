@@ -28,14 +28,20 @@ async function login(username, password) {
   
   // Fetch the posts data from the API
   async function fetchPosts(accessToken) {
-    const response = await fetch('/posts/', {
+    const response = await fetch('/posts', {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
+  
+    if (!response.ok) {
+      throw new Error('Failed to fetch posts');
+    }
+  
     const posts = await response.json();
-    return posts;
+    displayPosts(posts);
   }
+  
   
   // Render the list of posts on the webpage
   async function renderPosts(accessToken) {
@@ -73,4 +79,19 @@ async function login(username, password) {
     }
   });
   
+  function displayPosts(posts) {
+    const postsContainer = document.getElementById('posts-container');
+    postsContainer.innerHTML = '';
+  
+    posts.forEach((post) => {
+      const postElement = document.createElement('div');
+      postElement.classList.add('post');
+      postElement.innerHTML = `
+        <h3>${post.title}</h3>
+        <p>${post.content}</p>
+        <p>Votes: ${post.votes}</p>
+      `;
+      postsContainer.appendChild(postElement);
+    });
+  }
   
