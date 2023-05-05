@@ -59,7 +59,7 @@ function redirectToApiDocs() {
   }
   
   // Handle the login form submission
-  document.getElementById('login-form').addEventListener('submit', async (event) => {
+document.getElementById('login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
   
     const email = document.getElementById('email').value;
@@ -67,7 +67,8 @@ function redirectToApiDocs() {
   
     try {
       const accessToken = await login(email, password);
-      displayPosts(await fetchPosts(accessToken));
+      const posts = await fetchPosts(accessToken);
+      displayPosts(posts);
     } catch (error) {
       alert('Login failed. Please check your credentials and try again.');
     }
