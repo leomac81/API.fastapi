@@ -10,6 +10,18 @@
   <title>Leo Macintyre - Software Engineer</title>
 </head>
 <body>
+    <!-- Add this form element inside your <body> tag -->
+<form id="login-form">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" value="leoleo@leoleo.com">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" value="leo leo">
+    <br>
+    <input type="submit" value="Login">
+  </form>
+  
+    <div id="posts-container"></div>
   <div class="container">
     <a href="https://github.com/leomac81/API.fastapi" class="title-link">
       <h1 class="title">Leo Macintyre - Software Engineer</h1>
@@ -20,7 +32,7 @@
       <p>With every function, class, and byte,</p>
       <p>Together we create the light.</p>
     </div>
-    <div id="posts-container"></div>
+    
     <button class="api-button" onclick="redirectToApiDocs()">
       Try out the API!
     </button>
