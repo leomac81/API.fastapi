@@ -26,6 +26,13 @@
         <input type="submit" value="Login">
       </form>
       
+<!-- Add these buttons inside the <body> tag after the login form -->
+    <button id="create-post-button" class="hidden" onclick="displayCreatePostForm()">Create Post</button>
+    <button id="get-user-button" class="hidden" onclick="getUser()">Get User</button>
+    <button id="create-user-button" class="hidden" onclick="displayCreateUserForm()">Create User</button>
+    <button id="vote-button" class="hidden" onclick="displayVoteForm()">Vote</button>
+    
+
         <div id="posts-container"></div>
     
     <button class="api-button" onclick="redirectToApiDocs()">
