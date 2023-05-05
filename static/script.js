@@ -28,7 +28,7 @@ async function login(username, password) {
   
   // Fetch the posts data from the API
   async function fetchPosts(accessToken) {
-    const response = await fetch('/posts', {
+    const response = await fetch('/posts/', {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
