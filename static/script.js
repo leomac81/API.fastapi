@@ -34,6 +34,7 @@ function redirectToApiDocs() {
     }
   
     const posts = await response.json();
+    console.log('Fetched posts:', posts);
     return posts;
   }
   
@@ -75,6 +76,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
   });
   
   function displayPosts(posts) {
+    console.log('Displaying posts:', posts);
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';
   
