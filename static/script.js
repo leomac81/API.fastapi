@@ -4,7 +4,7 @@ function redirectToApiDocs() {
   
 // Fetch the posts data from the API
 async function fetchPosts() {
-    const response = await fetch('/www.leoapi.xyz/posts/');
+    const response = await fetch('/posts/');
     const posts = await response.json();
     return posts;
   }
