@@ -4,12 +4,17 @@ function redirectToApiDocs() {
   
 // Authenticate the user and get the access token
 async function login(username, password) {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('grant_type', 'password'); // grant_type is required for OAuth2PasswordRequestForm
+  
     const response = await fetch('/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({ username, password }),
+      body: new URLSearchParams(formData),
     });
   
     if (!response.ok) {
@@ -19,6 +24,7 @@ async function login(username, password) {
     const data = await response.json();
     return data.access_token;
   }
+  
   
   // Fetch the posts data from the API
   async function fetchPosts(accessToken) {
