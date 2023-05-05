@@ -83,15 +83,19 @@ async function login(username, password) {
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';
   
-    posts.forEach((post) => {
-      const postElement = document.createElement('div');
-      postElement.classList.add('post');
-      postElement.innerHTML = `
-        <h3>${post.title}</h3>
+    for (const postObj of posts) {
+      const post = postObj.Post;
+      const votes = postObj.votes;
+  
+      const postDiv = document.createElement('div');
+      postDiv.innerHTML = `
+        <h2>${post.title}</h2>
         <p>${post.content}</p>
-        <p>Votes: ${post.votes}</p>
+        <p>Votes: ${votes}</p>
       `;
-      postsContainer.appendChild(postElement);
-    });
+  
+      postsContainer.appendChild(postDiv);
+    }
   }
+  
   
