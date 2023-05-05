@@ -2,38 +2,24 @@ function redirectToApiDocs() {
     window.location.href = 'https://www.leoapi.xyz/docs';
   }
   
-// Authenticate the user and get the access token
-async function login(event) {
-    event.preventDefault();
+  // Authenticate the user and get the access token
+  async function login(email, password) {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&grant_type=password`
+    });
   
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-  
-    try {
-      const response = await fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&grant_type=password`
-      });
-  
-      if (response.status === 200) {
-        const data = await response.json();
-        localStorage.setItem('access_token', data.access_token);
-        fetchPosts();
-        document.getElementById('login-form').style.display = 'none';
-        document.getElementById('login-error').style.display = 'none'; // Hide the login error message
-      } else {
-        throw new Error('Login failed');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      document.getElementById('login-error').style.display = 'block';
+    if (response.status === 200) {
+      const data = await response.json();
+      localStorage.setItem('access_token', data.access_token);
+      return data.access_token;
+    } else {
+      throw new Error('Login failed');
     }
   }
-  
-  
   
   // Fetch the posts data from the API
   async function fetchPosts(accessToken) {
@@ -48,9 +34,8 @@ async function login(event) {
     }
   
     const posts = await response.json();
-    displayPosts(posts);
+    return posts;
   }
-  
   
   // Render the list of posts on the webpage
   async function renderPosts(accessToken) {
@@ -77,12 +62,12 @@ async function login(event) {
   document.getElementById('login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
   
-    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
   
     try {
-      const accessToken = await login(username, password);
-      await renderPosts(accessToken);
+      const accessToken = await login(email, password);
+      displayPosts(await fetchPosts(accessToken));
     } catch (error) {
       alert('Login failed. Please check your credentials and try again.');
     }
@@ -110,6 +95,4 @@ async function login(event) {
       postsContainer.appendChild(postDiv);
     }
   }
-  
-  
   
