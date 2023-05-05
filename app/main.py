@@ -17,7 +17,7 @@ pwd_context = CryptContext(schemes = ["bcrypt"], deprecated = "auto")
 
 app = FastAPI()
 
-origins = ["https://www.google.com","http://www.leoapi.xyz"]
+origins = ["https://www.google.com","https://www.leoapi.xyz"]
 
 app.add_middleware(
     CORSMiddleware,
