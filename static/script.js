@@ -214,11 +214,12 @@ async function deletePost(postId, accessToken) {
 }
 
 
+// Add event listeners for user actions here
 document.getElementById('create-post-btn').addEventListener('click', async () => {
   const title = document.getElementById('create-title').value;
   const content = document.getElementById('create-content').value;
-  await createPost(title, content);
   const accessToken = localStorage.getItem('access_token');
+  await createPost(title, content, accessToken);
   const posts = await fetchPosts(accessToken);
   displayPosts(posts);
 });
@@ -227,22 +228,23 @@ document.getElementById('update-post-btn').addEventListener('click', async () =>
   const postId = document.getElementById('update-post-id').value;
   const title = document.getElementById('update-title').value;
   const content = document.getElementById('update-content').value;
-  await updatePost(postId, title, content);
   const accessToken = localStorage.getItem('access_token');
+  await updatePost(postId, title, content, accessToken);
   const posts = await fetchPosts(accessToken);
   displayPosts(posts);
 });
 
 document.getElementById('get-post-btn').addEventListener('click', async () => {
   const postId = document.getElementById('get-post-id').value;
-  const post = await getPost(postId);
+  const accessToken = localStorage.getItem('access_token');
+  const post = await getPost(postId, accessToken);
   alert(`Title: ${post.title}\nContent: ${post.content}`);
 });
 
 document.getElementById('delete-post-btn').addEventListener('click', async () => {
   const postId = document.getElementById('delete-post-id').value;
-  await deletePost(postId);
   const accessToken = localStorage.getItem('access_token');
+  await deletePost(postId, accessToken);
   const posts = await fetchPosts(accessToken);
   displayPosts(posts);
 });
