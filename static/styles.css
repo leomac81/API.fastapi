@@ -58,3 +58,23 @@ body {
   overflow-y: auto;
   margin-bottom: 1rem;
 }
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#posts-container {
+  flex: 1;
+  max-width: 60%;
+  overflow-y: auto;
+  height: 100vh;
+  margin-right: 1em;
+}
+
+#user-actions {
+  flex: 1;
+  max-width: 35%;
+  overflow-y: auto;
+  height: 100vh;
+}
