@@ -9,7 +9,9 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
+  padding-top: 2em; /* Add padding-top to the body */
 }
+
 
 .title-link {
   text-decoration: none;
