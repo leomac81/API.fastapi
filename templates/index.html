@@ -35,7 +35,25 @@
         <input type="submit" value="Create User">
       </form>
       
-        <div id="posts-container"></div>
+      <div id="posts-container"></div>
+      <div id="post-actions" style="display: none;">
+      <h3>Create Post</h3>
+      <input type="text" id="create-title" placeholder="Title">
+      <textarea id="create-content" placeholder="Content"></textarea>
+      <button id="create-post-btn">Create Post</button>
+      <h3>Update Post</h3>
+      <input type="number" id="update-post-id" placeholder="Post ID">
+      <input type="text" id="update-title" placeholder="New Title">
+      <textarea id="update-content" placeholder="New Content"></textarea>
+      <button id="update-post-btn">Update Post</button>
+      <h3>Get Post</h3>
+      <input type="number" id="get-post-id" placeholder="Post ID">
+      <button id="get-post-btn">Get Post</button>
+      <h3>Delete Post</h3>
+      <input type="number" id="delete-post-id" placeholder="Post ID">
+      <button id="delete-post-btn">Delete Post</button>
+    </div>
+      
     
     <button class="api-button" onclick="redirectToApiDocs()">
       Try out the API!
