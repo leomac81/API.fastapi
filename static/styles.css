@@ -48,3 +48,13 @@ body {
   font-size: 1rem;
   cursor: pointer;
 }
+.post {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
