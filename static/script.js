@@ -79,6 +79,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
   
   function displayPosts(posts) {
     document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'none';
     document.getElementById('post-actions').style.display = 'block';
     console.log('Displaying posts:', posts);
     const postsContainer = document.getElementById('posts-container');
