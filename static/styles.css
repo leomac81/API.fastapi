@@ -68,13 +68,15 @@ body {
   flex: 1;
   max-width: 60%;
   overflow-y: auto;
-  height: 100vh;
+  height: 80vh; /* Change the height from 100vh to 80vh */
   margin-right: 1em;
+  margin-top: 1em; /* Add a margin at the top to avoid content going off the top of the screen */
 }
 
 #user-actions {
   flex: 1;
   max-width: 35%;
   overflow-y: auto;
-  height: 100vh;
+  height: 80vh; /* Change the height from 100vh to 80vh */
+  margin-top: 1em; /* Add a margin at the top to avoid content going off the top of the screen */
 }
