@@ -15,6 +15,9 @@ body {
   text-decoration: none;
   color: inherit;
 }
+.container {
+  margin-top: 2em; /* Add a margin at the top to ensure the title is visible */
+}
 
 .title {
   font-size: 2rem;
