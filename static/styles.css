@@ -70,7 +70,7 @@ body {
   overflow-y: auto;
   height: 80vh; /* Change the height from 100vh to 80vh */
   margin-right: 1em;
-  margin-top: 1em; /* Add a margin at the top to avoid content going off the top of the screen */
+  margin-top: 2em; /* Add a margin at the top to avoid content going off the top of the screen */
 }
 
 #user-actions {
