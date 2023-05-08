@@ -1,5 +1,3 @@
-import * as openai from 'openai';
-openai.apiKey = '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';
 
 function redirectToApiDocs() {
     window.location.href = 'https://www.leoapi.xyz/docs';
@@ -104,7 +102,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
         <h4>${post.title}</h4>
         <p style="font-size: small;">${post.content}</p>
         <p style="font-size: small;">Votes: ${votes}</p>
-        <span style="position: absolute; bottom: 10px; right: 10px;">${post.user_email}</span>
+        <span style="position: absolute; bottom: 10px; right: 10px;">${post.owner.email}</span>
         `;
   
       postsContainer.appendChild(postDiv);
