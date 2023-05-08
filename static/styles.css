@@ -94,11 +94,9 @@ body {
   margin-right: 1em;
   margin-top: 2em; /* Add a margin at the top to avoid content going off the top of the screen */
 
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid lightgrey;
   border-radius: 5px;
-  background-color: rgba(255,255,255,0.5);
-  box-shadow: 0 1px 12px rgba(0,0,0,0.25);
-  backdrop-filter: blur(20px);
+  background-color: #333;
 }
 
 #user-actions {
