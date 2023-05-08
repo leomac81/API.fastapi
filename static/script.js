@@ -1,3 +1,6 @@
+import * as openai from 'openai';
+openai.apiKey = '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';
+
 function redirectToApiDocs() {
     window.location.href = 'https://www.leoapi.xyz/docs';
   }
@@ -84,7 +87,9 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     console.log('Displaying posts:', posts);
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';
-  
+    
+    posts.sort((a, b) => new Date(b.Post.created_at) - new Date(a.Post.created_at));
+
     for (const postObj of posts) {
       const post = postObj.Post;
       const votes = postObj.votes;
@@ -94,11 +99,13 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
       postDiv.style.borderRadius = '5px';
       postDiv.style.padding = '10px';
       postDiv.style.marginBottom = '10px';
+      postDiv.style.position = 'relative';
       postDiv.innerHTML = `
         <h4>${post.title}</h4>
         <p style="font-size: small;">${post.content}</p>
         <p style="font-size: small;">Votes: ${votes}</p>
-      `;
+        <span style="position: absolute; bottom: 10px; right: 10px;">${post.user_email}</span>
+        `;
   
       postsContainer.appendChild(postDiv);
     }
@@ -249,3 +256,4 @@ document.getElementById('delete-post-btn').addEventListener('click', async () =>
   const posts = await fetchPosts(accessToken);
   displayPosts(posts);
 });
+
