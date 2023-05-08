@@ -93,6 +93,12 @@ body {
   height: 80vh; /* Change the height from 100vh to 80vh */
   margin-right: 1em;
   margin-top: 2em; /* Add a margin at the top to avoid content going off the top of the screen */
+
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 5px;
+  background-color: rgba(255,255,255,0.5);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.25);
+  backdrop-filter: blur(20px);
 }
 
 #user-actions {
