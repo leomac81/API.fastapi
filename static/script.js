@@ -91,7 +91,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     for (const postObj of posts) {
       const post = postObj.Post;
       const votes = postObj.votes;
-  
+      
       const postDiv = document.createElement('div');
       postDiv.style.border = '1px solid lightgrey';
       postDiv.style.borderRadius = '5px';
@@ -218,6 +218,7 @@ async function deletePost(postId, accessToken) {
     throw new Error('Failed to delete post');
   }
 }
+
 
 
 // Add event listeners for user actions here
