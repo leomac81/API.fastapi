@@ -43,19 +43,7 @@ body {
 .title-link:hover .title {
   text-decoration: underline;
 }
-/*
-.poem-box {
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  padding: 1rem;
-  margin-bottom: 2rem;
-  max-width: 80%;
-  text-align: center;
-  background-color: #333;
 
-  color: #fff;
-}
-*/
 .api-button {
   background-color: #4CAF50;
   border: none;
@@ -91,9 +79,7 @@ body {
   height: 80vh; /* Change the height from 100vh to 80vh */
   margin-right: 1em;
   margin-top: 2em; /* Add a margin at the top to avoid content going off the top of the screen */
-  /*
-  border: 1px solid lightgrey;
-  */
+ 
   border-radius: 5px;
   background-color: #333;
 }
