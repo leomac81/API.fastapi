@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import spotipy
+
 
 
 pwd_context = CryptContext(schemes = ["bcrypt"], deprecated = "auto")
