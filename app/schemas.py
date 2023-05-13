@@ -48,3 +48,16 @@ class TokenData(BaseModel):
 class Vote(BaseModel):
     post_id:int
     dir: conint(ge=0, le=1)
+
+class TaskBase(BaseModel):
+    content: str
+    completed: bool = False
+
+class TaskCreate(TaskBase):
+    pass
+
+class Task(TaskBase):
+    id: int
+    user_id: int
+    class Config:
+        orm_mode = True

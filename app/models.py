@@ -28,3 +28,12 @@ class Vote(Base):
     __tablename__='votes'
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
     post_id = Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), primary_key=True)
+
+class Task(Base):
+    __tablename__ = "tasks"
+
+    id = Column(Integer, primary_key = True, nullable = False)
+    content = Column(String, nullable = False)
+    completed = Column(Boolean, default = False, nullable = False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    user = relationship("User")
