@@ -1,18 +1,11 @@
 from .database import Base
-from sqlalchemy import TIMESTAMP, Column, Integer, String, Boolean,text, ForeignKey
+from sqlalchemy import TIMESTAMP, Column, Integer, String, func,text, ForeignKey,DateTime
 from sqlalchemy.orm import relationship
+from pydantic import BaseModel
+from typing import List
+from pydantic import BaseModel, Field
+from datetime import datetime
 
-
-class Post(Base):
-    __tablename__ = "posts"
-
-    id = Column(Integer, primary_key = True, nullable = False)
-    title = Column(String, nullable = False)
-    content = Column(String, nullable = False)
-    published = Column(Boolean, server_default = 'True' ,nullable = False)
-    created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
-    owner_id = Column(Integer, ForeignKey("users.id", ondelete= "CASCADE"), nullable = False)
-    owner = relationship("User")
 
 
 class User(Base):
@@ -23,17 +16,17 @@ class User(Base):
     password = Column(String, nullable = False)
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 
+class Frequency(str):
+    DAILY = "daily"
+    WEEKLY = "weekly"
+    MONTHLY = "monthly"
 
-class Vote(Base):
-    __tablename__='votes'
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
-    post_id = Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), primary_key=True)
-
-class Task(Base):
-    __tablename__ = "tasks"
-
-    id = Column(Integer, primary_key = True, nullable = False)
-    content = Column(String, nullable = False)
-    completed = Column(Boolean, default = False, nullable = False)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    user = relationship("User")
+class Habits(Base):
+    __tablename__ = "habits"
+    id= Column(Integer, primary_key=True)
+    public= Column(String)
+    frequency= Column(String)
+    habit_description= Column(String)
+    end_goal= Column(String)
+    end_date= Column(TIMESTAMP(timezone=True), server_default=text('now()'))
+    owner_id = Column(Integer, ForeignKey("users.id"))
