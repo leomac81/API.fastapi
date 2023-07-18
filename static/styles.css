@@ -1,32 +1,200 @@
-.container {
-  width: 300px;
-  margin: 0 auto;
-  padding-top: 100px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 
-#login-form {
+body {
+  background: #88BDBC;
+  font-family: 'Rubik', sans-serif;
+}
+
+.login-form {
+  background: #a2dfdd;
+  width: 500px;
+  margin: 65px auto;
+  display: -webkit-box;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
 }
-
-.form-group {
-  margin-bottom: 15px;
+.login-form h1 {
+  padding: 35px 35px 0 35px;
+  font-weight: 300;
+  color: #3c4d6d;
 }
-
-.form-group label {
+.login-form .content {
+  padding: 35px;
+  text-align: center;
+}
+.login-form .input-field {
+  padding: 12px 5px;
+}
+.login-form .input-field input {
+  font-size: 16px;
   display: block;
-  margin-bottom: 5px;
+  font-family: 'Rubik', sans-serif;
+  width: 100%;
+  padding: 10px 1px;
+  border: 0;
+  border-bottom: 1px solid #ffffff;
+  outline: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+.login-form .input-field input::-webkit-input-placeholder {
+  text-transform: uppercase;
+}
+.login-form .input-field input::-moz-placeholder {
+  text-transform: uppercase;
+}
+.login-form .input-field input:-ms-input-placeholder {
+  text-transform: uppercase;
+}
+.login-form .input-field input::-ms-input-placeholder {
+  text-transform: uppercase;
+}
+.login-form .input-field input::placeholder {
+  text-transform: uppercase;
+}
+.login-form .input-field input:focus {
+  border-color: #ffffff;
+}
+.login-form a.link {
+  text-decoration: none;
+  color: #fff;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-top: 20px;
+}
+.login-form .action {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+}
+.login-form .action button {
+  width: 100%;
+  border: none;
+  padding: 18px;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  background: #3f5187;
+  color: #fff;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 0;
+  letter-spacing: 0.2px;
+  outline: 0;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+.login-form .action button:hover {
+  background: #d8d8d8;
+}
+.login-form .action button:nth-child(2) {
+  background: #2d3b55;
+  color: #fff;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 4px;
+}
+.login-form .action button:nth-child(2):hover {
+  background: #3c4d6d;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.main-container {
+  position: relative; /* Add this line */
+  display: flex;
+}
+
+.habits-container {
+  width: 33%;
+  float: left;
+  background: #88BDBC; /* change color according to your design */
+  height: 100vh; /* take up full vertical height */
+  overflow-y: auto; /* allow scrolling if content is too long */
+  padding: 20px;
+  display: none; /* Hide it initially. We will display it after successful login */
 }
 
 .habit {
-  border: 1px solid black;
-  margin-bottom: 20px;
+  background: #a2dfdd; /* or any color you prefer for each habit */
+  font-family: 'Rubik', sans-serif;
+  margin-bottom: 10px;
   padding: 10px;
+  border-radius: 5px;
 }
+
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #88BDBC #88BDBC;
+}
+
+/* For Chrome, Safari, and Opera */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #88BDBC;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #88BDBC;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #6a9392;
+}
+
+/* For Internet Explorer and Edge */
+html {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+#logout-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #a2dfdd;
+  color: #000000;
+  font-family: 'Rubik', sans-serif;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin-top: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+}
+
+#create-habit-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#create-habit-form {
+  width: 100%; /* take up the middle third of the screen */
+  padding: 20px;
+  display: none;
+  border: 1px solid #000;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow: auto; /* Add scroll if content overflows */
+  background: #a2dfdd; /* Similar to your login form */
+  box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2); /* Similar to your login form */
+  border-radius: 4px; /* Similar to your login form */
+  max-width: 800px; /* or any other max-width you prefer */
+}
+
+
+
