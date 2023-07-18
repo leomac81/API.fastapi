@@ -64,7 +64,7 @@ async def create_habit_completion(habit_id: int,
     return new_completion
 
 @router.delete("/{id}",status_code = status.HTTP_204_NO_CONTENT)
-def delete_post(id: int,db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
+def delete_habit(id: int,db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
 
     habit_query = db.query(models.Habits).filter(models.Habits.id == id)
     habit = habit_query.first()

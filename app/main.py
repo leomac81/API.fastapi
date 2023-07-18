@@ -15,7 +15,7 @@ pwd_context = CryptContext(schemes = ["bcrypt"], deprecated = "auto")
 app = FastAPI()
 
 #defines all websites that will be allowed to interact with the fasapi application through CORS
-origins = ["https://www.google.com","https://www.leoapi.xyz"]
+origins = ["https://www.google.com","http://127.0.0.1:8000"]
 #The following block of code adds a middleware to the FastAPI application, allowing CORS for the specified origins, and allowing any methods and headers:
 app.add_middleware(
     CORSMiddleware,

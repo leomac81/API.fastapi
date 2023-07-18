@@ -1,72 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="static/styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-  <title>Leo Macintyre - Software Engineer</title>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
 </head>
-
 <body>
-  <div class="main-wrapper">
     <div class="container">
-      <a href="https://github.com/leomac81/API.fastapi" class="title-link">
-        <h1 class="title">Leo Macintyre - Software Engineer</h1>
-      </a>
-      <div class="forms-container"></div>
-      <form id="login-form">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="">
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" value="">
-        <br>
-        <input type="submit" value="Login">
-      </form>
-      <form id="register-form">
-        <label for="register-email">Email:</label>
-        <input type="email" id="register-email" name="register-email" value="">
-        <br>
-        <label for="register-password">Password:</label>
-        <input type="password" id="register-password" name="register-password" value="">
-        <br>
-        <input type="submit" value="Create User">
-      </form>
+        <form id="login-form">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="username">Email:</label>
+                <input type="email" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
     </div>
-      <div class="content-wrapper">
-        <div id="posts-container"></div>
-        <div id="user-actions" style="display: none;">
-          <div id="post-actions" style="display: none;">
-            <h3>Create Post</h3>
-            <input type="text" id="create-title" placeholder="Title">
-            <textarea id="create-content" placeholder="Content"></textarea>
-            <button id="create-post-btn">Create Post</button>
-            <h3>Update Post</h3>
-            <input type="number" id="update-post-id" placeholder="Post ID">
-            <input type="text" id="update-title" placeholder="New Title">
-            <textarea id="update-content" placeholder="New Content"></textarea>
-            <button id="update-post-btn">Update Post</button>
-            <h3>Get Post</h3>
-            <input type="number" id="get-post-id" placeholder="Post ID">
-            <button id="get-post-btn">Get Post</button>
-            <h3>Delete Post</h3>
-            <input type="number" id="delete-post-id" placeholder="Post ID">
-            <button id="delete-post-btn">Delete Post</button>
-          </div>
-        </div>
-      </div>
-
-      <button class="api-button" onclick="redirectToApiDocs()">
-        Try out the API!
-      </button>
-    </div>
-    </div>
-  </div>
-  <script src="static/script.js"></script>
+    <script src="static/script.js"></script>
 </body>
-
 </html>
