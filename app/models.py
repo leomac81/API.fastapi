@@ -1,5 +1,5 @@
 from .database import Base
-from sqlalchemy import TIMESTAMP, Column, Integer, String, func,text, ForeignKey,DateTime
+from sqlalchemy import TIMESTAMP, Column, Integer, String, func,text, ForeignKey,DateTime, Boolean, Date
 from sqlalchemy.orm import relationship
 from pydantic import BaseModel
 from typing import List
@@ -30,3 +30,14 @@ class Habits(Base):
     end_goal= Column(String)
     end_date= Column(TIMESTAMP(timezone=True), server_default=text('now()'))
     owner_id = Column(Integer, ForeignKey("users.id"))
+    created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
+    completions = relationship("HabitCompletion", back_populates="habit")
+
+class HabitCompletion(Base):
+    __tablename__ = "habit_completions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, nullable=False)
+    completed = Column(Boolean, nullable=False)
+    habit_id = Column(Integer, ForeignKey("habits.id"))
+    habit = relationship("Habits", back_populates="completions")

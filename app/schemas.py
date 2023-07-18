@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from pydantic.types import conint
 from datetime import date
 from enum import Enum
@@ -24,6 +24,15 @@ class HabitCreate(BaseModel):
     class Config:
         orm_mode = True
 
+class HabitCompletion(BaseModel):
+    id: int
+    date: date
+    completed: bool
+    habit_id: int
+
+    class Config:
+        orm_mode = True
+
 class Habit(BaseModel):
     id: int
     public: Public
@@ -31,6 +40,8 @@ class Habit(BaseModel):
     habit_description: str
     end_goal: str
     end_date: datetime
+    created_at: datetime
+    completions: List[HabitCompletion] = []
 
     class Config:
         orm_mode = True
@@ -56,4 +67,7 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[str]
+
+class HabitCompletionCreate(BaseModel):
+    completed: bool
 

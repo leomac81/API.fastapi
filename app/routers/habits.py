@@ -2,7 +2,7 @@ from fastapi import FastAPI, Body,Response,status,HTTPException,Depends,APIRoute
 from typing import List
 from sqlalchemy.orm import Session
 from fastapi import status,Depends
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from app.database import get_db
 from fastapi import status,Depends
 from sqlalchemy.orm import Session
@@ -11,6 +11,8 @@ from app.database import get_db
 from app import models,schemas,utils
 from pydantic import EmailStr
 from sqlalchemy.exc import IntegrityError
+import datetime
+from datetime import timedelta
 
 router = APIRouter(
     prefix = "/habits",
@@ -31,9 +33,47 @@ async def create_habit(habit: schemas.HabitCreate, db: Session = Depends(get_db)
     return new_habit
 
 @router.get("/{user_email}", response_model=List[schemas.Habit])
-async def read_user_habits_email(user_email: EmailStr, db: Session = Depends(get_db)):
+async def read_user_habits_email(user_email: EmailStr, 
+                                 db: Session = Depends(get_db),
+                                 current_user: models.User = Depends(oauth2.get_current_user)):
     user = db.query(models.User).filter(models.User.email == user_email).first()
+    
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    habits = db.query(models.Habits).filter(models.Habits.owner_id == user.id, models.Habits.public == 'yes').all()
+
+    past_date = datetime.datetime.now() - timedelta(days=14)
+    if current_user.email == user_email:
+        habits = db.query(models.Habits).options(joinedload(models.Habits.completions)).filter(models.Habits.owner_id == user.id, models.Habits.created_at >= past_date).order_by(models.Habits.created_at).all()
+    else:
+        habits = db.query(models.Habits).options(joinedload(models.Habits.completions)).filter(models.Habits.owner_id == user.id, models.Habits.public == 'yes', models.Habits.created_at >= past_date).order_by(models.Habits.created_at).all()
+
     return habits
+
+
+@router.post("/{habit_id}/completion", response_model=schemas.HabitCompletion)
+async def create_habit_completion(habit_id: int, 
+                                  habit_completion: schemas.HabitCompletionCreate,
+                                  db: Session = Depends(get_db)):
+    habit = db.query(models.Habits).get(habit_id)
+    if not habit:
+        raise HTTPException(status_code=404, detail="Habit not found")
+    new_completion = models.HabitCompletion(date=datetime.date.today(), completed=habit_completion.completed, habit_id=habit_id)
+    db.add(new_completion)
+    db.commit()
+    db.refresh(new_completion)
+    return new_completion
+
+@router.delete("/{id}",status_code = status.HTTP_204_NO_CONTENT)
+def delete_post(id: int,db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
+
+    habit_query = db.query(models.Habits).filter(models.Habits.id == id)
+    habit = habit_query.first()
+
+    if habit == None:
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,detail = f"habit with id: {id} does not exist")
+    if habit.owner_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail = "Not authorized to perform this action")
+    habit_query.delete(synchronize_session=False)
+    db.commit()
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
