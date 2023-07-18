@@ -1,36 +1,64 @@
 function redirectToApiDocs() {
-  window.location.href = 'http://127.0.0.1:8000/docs';
+  window.location.href = 'http://127.0.0.1:8000';
 }
 
-document.getElementById('login-form').addEventListener('submit', function(event) {
+async function login(email, password) {
+  const response = await fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&grant_type=password`
+  });
+
+  if (response.status === 200) {
+    const data = await response.json();
+    localStorage.setItem('access_token', data.access_token);
+    return data.access_token;
+  } else {
+    throw new Error('Login failed');
+  }
+}
+
+async function getHabits(userEmail, accessToken) {
+  const response = await fetch(`/habits/${encodeURIComponent(userEmail)}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    },
+  });
+
+  if (response.status === 200) {
+    const data = await response.json();
+    return data;
+  } else {
+    throw new Error('Unable to retrieve habits');
+  }
+}
+
+async function displayHabits(habits) {
+  const habitsContainer = document.getElementById('habits-container');
+  
+  habits.forEach(habit => {
+    const habitElement = document.createElement('div');
+    habitElement.classList.add('habit');
+    habitElement.textContent = habit.habit_description;  // Replace 'name' with whatever property your Habit has for its name
+    habitsContainer.appendChild(habitElement);
+  });
+}
+
+document.getElementById('login-form').addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
+  const email = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
 
-  var data = {
-      'username': username,
-      'password': password
-  };
-
-  fetch('http://127.0.0.1:8000/login', { // replace with your actual server address
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams(data),
-  })
-  .then(response => response.json())
-  .then(data => {
-      if(data.access_token){
-          localStorage.setItem('access_token', data.access_token);
-          alert("Login successful");
-          // Redirect to another page or do something else
-      } else {
-          alert("Login failed");
-      }
-  })
-  .catch((error) => {
-      console.error('Error:', error);
-  });
+  try {
+    const accessToken = await login(email, password);
+    const habits = await getHabits(email, accessToken);
+    displayHabits(habits);
+  } catch (error) {
+    alert('Login failed. Please check your credentials and try again.');
+  }
 });
+
