@@ -23,24 +23,24 @@ class Frequency(str):
 
 class Habits(Base):
     __tablename__ = "habits"
-    id= Column(Integer, primary_key=True)
-    public= Column(String)
-    frequency= Column(String)
-    habit_description= Column(String)
-    end_goal= Column(String)
-    end_date= Column(TIMESTAMP(timezone=True), server_default=text('now()'))
-    owner_id = Column(Integer, ForeignKey("users.id"))
-    created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
-    completions = relationship("HabitCompletion", back_populates="habit")
+    id= Column(Integer, primary_key=True, nullable = False)
+    public= Column(String, nullable = False)
+    frequency= Column(String, nullable = False)
+    habit_description= Column(String, nullable = False)
+    end_goal= Column(String, nullable = False)
+    end_date= Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
+    owner_id = Column(Integer, ForeignKey("users.id"), nullable = False)
+    created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
+    completions = relationship("HabitCompletion", back_populates="habit", cascade="all, delete-orphan")
 
 class HabitCompletion(Base):
     __tablename__ = "habit_completions"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, nullable = False)
     date = Column(Date, nullable=False)
     completed = Column(Boolean, nullable=False)
-    habit_id = Column(Integer, ForeignKey("habits.id"))
-    comment = Column(String)
+    habit_id = Column(Integer, ForeignKey("habits.id", ondelete="CASCADE"))
+    comment = Column(String, nullable = True)
     habit = relationship("Habits", back_populates="completions")
 
     __table_args__ = (UniqueConstraint('date', 'habit_id', name='unique_habit_completion_per_day'),)

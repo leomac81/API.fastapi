@@ -54,13 +54,27 @@ async def read_user_habits_email(user_email: EmailStr,
 async def create_habit_completion(habit_id: int, 
                                   habit_completion: schemas.HabitCompletionCreate,
                                   db: Session = Depends(get_db)):
-    existing_completion = db.query(models.HabitCompletion).filter(models.HabitCompletion.date == habit_completion.date, models.HabitCompletion.habit_id == habit_id).first()
-    if existing_completion:
-        raise HTTPException(status_code=400, detail="A completion for this habit already exists for today.")
     
     habit = db.query(models.Habits).get(habit_id)
     if not habit:
         raise HTTPException(status_code=404, detail="Habit not found")
+    
+    if habit.frequency == models.Frequency.DAILY:
+        period_start = datetime.date.today()
+    elif habit.frequency == models.Frequency.WEEKLY:
+       period_start = datetime.date.today() - timedelta(days=habit_completion.date.weekday())
+    elif habit.frequency == models.Frequency.MONTHLY:
+        period_start = datetime.date.today().replace(day=1)
+
+    existing_completion = db.query(models.HabitCompletion).filter(
+        habit_completion.date >= period_start, 
+        habit_completion.date <= datetime.date.today(), 
+        models.HabitCompletion.habit_id == habit_id
+    ).first()
+
+    if existing_completion:
+        raise HTTPException(status_code=400, detail=f"A completion for this habit already exists for this {habit.frequency} period, starting on {period_start}.")
+
     new_completion = models.HabitCompletion(date=datetime.date.today(), completed=habit_completion.completed, habit_id=habit_id, comment = habit_completion.comment)
     db.add(new_completion)
     db.commit()
