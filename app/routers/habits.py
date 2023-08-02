@@ -43,9 +43,9 @@ async def read_user_habits_email(user_email: EmailStr,
 
     past_date = datetime.datetime.now() - timedelta(days=14)
     if current_user.email == user_email:
-        habits = db.query(models.Habits).options(joinedload(models.Habits.completions)).filter(models.Habits.owner_id == user.id, models.Habits.created_at >= past_date).order_by(models.Habits.created_at).all()
+        habits = db.query(models.Habits).options(joinedload(models.Habits.completions)).filter(models.Habits.owner_id == user.id).order_by(models.Habits.created_at).all()
     else:
-        habits = db.query(models.Habits).options(joinedload(models.Habits.completions)).filter(models.Habits.owner_id == user.id, models.Habits.public == 'yes', models.Habits.created_at >= past_date).order_by(models.Habits.created_at).all()
+        habits = db.query(models.Habits).options(joinedload(models.Habits.completions)).filter(models.Habits.owner_id == user.id, models.Habits.public == 'yes').order_by(models.Habits.created_at).all()
 
     return habits
 
@@ -54,10 +54,14 @@ async def read_user_habits_email(user_email: EmailStr,
 async def create_habit_completion(habit_id: int, 
                                   habit_completion: schemas.HabitCompletionCreate,
                                   db: Session = Depends(get_db)):
+    existing_completion = db.query(models.HabitCompletion).filter(models.HabitCompletion.date == habit_completion.date, models.HabitCompletion.habit_id == habit_id).first()
+    if existing_completion:
+        raise HTTPException(status_code=400, detail="A completion for this habit already exists for today.")
+    
     habit = db.query(models.Habits).get(habit_id)
     if not habit:
         raise HTTPException(status_code=404, detail="Habit not found")
-    new_completion = models.HabitCompletion(date=datetime.date.today(), completed=habit_completion.completed, habit_id=habit_id)
+    new_completion = models.HabitCompletion(date=datetime.date.today(), completed=habit_completion.completed, habit_id=habit_id, comment = habit_completion.comment)
     db.add(new_completion)
     db.commit()
     db.refresh(new_completion)

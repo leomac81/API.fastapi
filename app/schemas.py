@@ -28,6 +28,7 @@ class HabitCompletion(BaseModel):
     id: int
     date: date
     completed: bool
+    comment: str
     habit_id: int
 
     class Config:
@@ -70,4 +71,6 @@ class TokenData(BaseModel):
 
 class HabitCompletionCreate(BaseModel):
     completed: bool
+    comment: str = ""
+    date: date
 

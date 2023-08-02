@@ -1,5 +1,5 @@
 from .database import Base
-from sqlalchemy import TIMESTAMP, Column, Integer, String, func,text, ForeignKey,DateTime, Boolean, Date
+from sqlalchemy import TIMESTAMP, Column, Integer, String, func,text, ForeignKey,DateTime, Boolean, Date,UniqueConstraint
 from sqlalchemy.orm import relationship
 from pydantic import BaseModel
 from typing import List
@@ -40,4 +40,7 @@ class HabitCompletion(Base):
     date = Column(Date, nullable=False)
     completed = Column(Boolean, nullable=False)
     habit_id = Column(Integer, ForeignKey("habits.id"))
+    comment = Column(String)
     habit = relationship("Habits", back_populates="completions")
+
+    __table_args__ = (UniqueConstraint('date', 'habit_id', name='unique_habit_completion_per_day'),)
