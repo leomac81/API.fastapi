@@ -1,0 +1,7 @@
+/* CreateHabits.css */
+.create-habit-form {
+    display: flex;
+    flex-direction: column; /* makes sure child items stack vertically */
+    gap: 10px; /* adds space between child items */
+    margin-left: 30px;
+}

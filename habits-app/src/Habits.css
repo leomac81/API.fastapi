@@ -1,0 +1,59 @@
+.habits-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.habit-box {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin; /* changed from none to thin */
+    scrollbar-color: rgba(0,0,0,0.1) transparent; /* added this line */
+}
+
+/* For Chrome, Safari, and Opera */
+*::-webkit-scrollbar {
+    width: 8px; /* changed from display: none */
+}
+*::-webkit-scrollbar-track {
+    background: transparent; /* added this line */
+}
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.1); /* added this line */
+    border-radius: 20px; /* added this line */
+    border: 3px solid transparent; /* added this line */
+}
+/* For Internet Explorer and Edge */
+html {
+    -ms-overflow-style: none;
+}
+
+.complete-habit-btn  {
+    display: inline-block;
+    text-decoration: none; /* removes underline from link */
+    border: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #7439db;
+    text-align: center;
+  }
+  
+  .complete-habit-btn:hover  {
+    color: white;
+    background-color: #7439db;
+  }
+  

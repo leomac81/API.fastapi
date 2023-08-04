@@ -19,7 +19,7 @@ class HabitCreate(BaseModel):
     frequency: Frequency
     habit_description: str
     end_goal: str
-    end_date: datetime
+    end_date: date
 
     class Config:
         orm_mode = True

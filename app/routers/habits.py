@@ -73,7 +73,7 @@ async def create_habit_completion(habit_id: int,
     ).first()
 
     if existing_completion:
-        raise HTTPException(status_code=400, detail=f"A completion for this habit already exists for this {habit.frequency} period, starting on {period_start}.")
+        raise HTTPException(status_code=409, detail=f"A completion for this habit already exists for this {habit.frequency} period, starting on {period_start}.")
 
     new_completion = models.HabitCompletion(date=datetime.date.today(), completed=habit_completion.completed, habit_id=habit_id, comment = habit_completion.comment)
     db.add(new_completion)
@@ -95,3 +95,16 @@ def delete_habit(id: int,db: Session = Depends(get_db), current_user: int = Depe
     db.commit()
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.get("/gethabits/{habit_id}", response_model=schemas.Habit)
+async def read_habit(habit_id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
+    habit = db.query(models.Habits).filter(models.Habits.id == habit_id).first()
+
+    if not habit:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Habit not found")
+
+    if habit.owner_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to perform this action")
+
+    return habit

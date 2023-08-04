@@ -1,0 +1,46 @@
+/* HabitCompletionPage.css */
+
+.habit-completion-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .habit-completion-page h1 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
+  }
+  
+  .habit-completion-page form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .habit-completion-page input[type="text"] {
+    width: 100%;
+  }
+  
+  .habit-completion-page label {
+    margin-top: 1rem;
+    color: #ffffff;
+  }
+  
+  .habit-completion-page button {
+    margin-top: 1rem;
+  }
+  
+  .habit-completion-page input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+  }
+  
+  /* Loading message */
+  .loading-message {
+    font-size: 1.5rem;
+    color: #ffffff;
+  }
+  
