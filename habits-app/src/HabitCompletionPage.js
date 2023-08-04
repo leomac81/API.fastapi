@@ -51,9 +51,11 @@ export const HabitCompletionPage = () => {
 
   const handleCompletionFormSubmit = (event) => {
     event.preventDefault();
-    const date = new Date().toISOString().split('T')[0];
-    const comment = event.target.elements.comment.value;
     const completed = event.target.elements.completed.checked;
+    const comment = event.target.elements.comment.value;
+    const date = new Date().toISOString().split('T')[0];
+    
+    
     addCompletion({ comment, completed,date });
   };
 

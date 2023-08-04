@@ -41,19 +41,66 @@ html {
 }
 
 .complete-habit-btn  {
-    display: inline-block;
+    display: block;
     text-decoration: none; /* removes underline from link */
     border: none;
     background-color: white;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 5px;
+    border-radius: 5px;
     cursor: pointer;
     color: #7439db;
     text-align: center;
+    margin-bottom: 10px;
+    margin-top:10px;
+    
   }
   
   .complete-habit-btn:hover  {
     color: white;
-    background-color: #7439db;
+    background-color: #9963f8;
   }
+  
+  .delete-habit-btn  {
+    display: block;
+    text-decoration: none; /* removes underline from link */
+    border: none;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #7439db;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top:10px;
+  }
+  .delete-habit-btn:hover  {
+    color: white;
+    background-color: #9963f8;
+  }
+ 
+.completed {
+    background-color: rgb(0, 114, 46);
+}
+
+.not-completed {
+    background-color: rgb(80, 80, 80);
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 5px;
+    row-gap: 5px; 
+    width: 50%;
+    height: 50%;
+  }
+  
+  .completion-box {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 10px;
+  }
+  
+  
   

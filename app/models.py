@@ -31,16 +31,16 @@ class Habits(Base):
     end_date= Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
     owner_id = Column(Integer, ForeignKey("users.id"), nullable = False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
-    completions = relationship("HabitCompletion", back_populates="habit", cascade="all, delete-orphan")
+    completions = relationship("HabitCompletion", back_populates="habit", cascade="all, delete-orphan", order_by="HabitCompletion.id")
 
 class HabitCompletion(Base):
     __tablename__ = "habit_completions"
 
     id = Column(Integer, primary_key=True, index=True, nullable = False)
     date = Column(Date, nullable=False)
-    completed = Column(Boolean, nullable=False)
+    completed = Column(Boolean, nullable=False, default = False)
     habit_id = Column(Integer, ForeignKey("habits.id", ondelete="CASCADE"))
-    comment = Column(String, nullable = True)
+    comment = Column(String, nullable = True, default = '')
     habit = relationship("Habits", back_populates="completions")
 
     __table_args__ = (UniqueConstraint('date', 'habit_id', name='unique_habit_completion_per_day'),)

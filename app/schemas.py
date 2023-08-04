@@ -28,7 +28,7 @@ class HabitCompletion(BaseModel):
     id: int
     date: date
     completed: bool
-    comment: str
+    comment: Optional[str] = None
     habit_id: int
 
     class Config:
