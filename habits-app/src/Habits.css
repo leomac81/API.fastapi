@@ -5,16 +5,23 @@
     width: 33%;
     max-height: 80vh;
     overflow-y: auto;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .habit-box {
+    display: flex;
     border: 1px solid #ccc;
     margin-bottom: 20px;
     padding: 10px;
     width: 100%;
     max-width: 300px;
     border-radius: 5px;
+    box-sizing: border-box;
     text-align: left;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-between;
 }
 
 /* For Firefox */
@@ -52,6 +59,8 @@ html {
     text-align: center;
     margin-bottom: 10px;
     margin-top:10px;
+    max-width: 100%;
+  box-sizing: border-box; 
     
   }
   
@@ -72,6 +81,8 @@ html {
     text-align: center;
     margin-bottom: 10px;
     margin-top:10px;
+    max-width: 100%;
+  box-sizing: border-box; 
   }
   .delete-habit-btn:hover  {
     color: white;
@@ -79,20 +90,23 @@ html {
   }
  
 .completed {
-    background-color: rgb(0, 114, 46);
+    background-color: rgb(0, 140, 56);
 }
 
 .not-completed {
-    background-color: rgb(80, 80, 80);
+    background-color: rgb(74, 74, 74);
 }
-.grid-container {
+.grid-container, .habit-box {
+  box-sizing: border-box;
+}
+
+.grid-container{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(2, 1fr);
     column-gap: 5px;
     row-gap: 5px; 
-    width: 50%;
-    height: 50%;
+    max-width: 0%;
   }
   
   .completion-box {
@@ -100,6 +114,7 @@ html {
     height: 100%;
     margin: 0px;
     padding: 10px;
+    border-radius: 5px;
   }
   
   

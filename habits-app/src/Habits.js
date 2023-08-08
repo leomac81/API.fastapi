@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Habits.css';
-import { CreateHabit } from './CreateHabits';
 import { Link } from 'react-router-dom';
 import HabitCompletionGrid from './HabitCompletionGrid.js';
 
-export const Habits = ({ habits, setHabits, isLoggedIn, userEmail }) => {
+export const Habits = ({ habits, setHabits, isLoggedIn, userEmail, setLastUpdate}) => {
     const [toBeDeleted, setToBeDeleted] = useState([]);
 
     useEffect(() => {
         const fetchHabits = async () => {
             try {
                 if (userEmail) {
-                    const response = await axios.get(`http://127.0.0.1:8000/habits/${userEmail}`, {
+                    const response = await axios.get(`http://127.0.0.1:8000/habits/email/${userEmail}`, {
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                             'Content-Type': 'application/json'
@@ -47,7 +46,7 @@ export const Habits = ({ habits, setHabits, isLoggedIn, userEmail }) => {
                 // Filter out the deleted habit
                 const updatedHabits = habits.filter(habit => habit.id !== id);
                 setHabits(updatedHabits);
-
+                setLastUpdate(Date.now());
                 // Remove id from toBeDeleted array
                 const updatedToBeDeleted = toBeDeleted.filter(habitId => habitId !== id);
                 setToBeDeleted(updatedToBeDeleted);
@@ -61,8 +60,8 @@ export const Habits = ({ habits, setHabits, isLoggedIn, userEmail }) => {
     const dateToKey = date => new Date(date).toISOString().split('T')[0];
     return (
         <div className="habits-container">
-
-            <h1>Your Habits</h1>
+            
+            <h2>Your Habits</h2>
             {habits.map(habit => {
                 // Create a lookup object from the completions array
                 const completionLookup = habit.completions.reduce((lookup, completion) => {
@@ -74,7 +73,7 @@ export const Habits = ({ habits, setHabits, isLoggedIn, userEmail }) => {
                 let completionsWithRemaining = Array.from({ length: 14 }, (_, i) => {
                     // Calculate the date for this index
                     let date = new Date();
-                    date.setDate(date.getDate() - (14 - 1 - i)+1);
+                    date.setDate(date.getDate() - (14 - 1 - i));
                     // If a completion exists for this date, return it. Otherwise, return false.
                     return completionLookup[dateToKey(date)] || false;
                 });

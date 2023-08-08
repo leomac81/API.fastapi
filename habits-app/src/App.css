@@ -3,17 +3,18 @@
   display: flex;
   min-height: 100vh;
   align-items: center;
-  justify-content: center;
   color: white;
   background-image: linear-gradient(79deg, #7439db, #C66FBC 48%, #F7944D);
   padding-top: 60px; /* Adjust based on the height of your top bar + desired space */
-
+  flex-direction: row; /* Change from default value of column to row to align children horizontally */
+  justify-content: flex-start;
 
 }
 
 .auth-form-container, .login-form, .register-form {
   display: flex;
   flex-direction: column;
+  
   
 }
 
@@ -23,6 +24,9 @@
     border: 1px solid white;
     border-radius: 10px;
     margin: 0.5rem;
+    width: max-content;   /* This makes sure the width is only as wide as the content */
+    margin: auto;         
+    
   }
 }
 
@@ -61,5 +65,12 @@ button {
   border-radius: 10px;
   font-weight: bold;
   text-align: center;
+}
+
+.habits-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%; /* Ensures this container takes up the full width available */
 }
 

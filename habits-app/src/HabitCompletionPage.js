@@ -10,7 +10,7 @@ export const HabitCompletionPage = () => {
 
   const fetchHabit = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/habits/gethabits/${habitId}`, {
+      const response = await axios.get(`http://127.0.0.1:8000/habits/${habitId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json'
@@ -65,16 +65,16 @@ export const HabitCompletionPage = () => {
   }
 
   return (
-    <div>
+    <div className="habit-completion-page">
       <h1>{habit.habit_description}</h1>
       <form onSubmit={handleCompletionFormSubmit}>
         <input type="checkbox" name="completed" id="completed" />
         <label htmlFor="completed">Completed</label>
         <input type="text" name="comment" id="comment" placeholder="Comment" />
         <button type="submit">Add Completion</button>
-        {completionError && <p className="error-banner">{completionError}</p>}
-
       </form>
+      {completionError && <p className="error-banner">{completionError}</p>}
     </div>
+    
   );
 };

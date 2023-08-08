@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './CreateHabits.css'
 import { Habits } from './Habits';
-export const CreateHabit = ({habits,setHabits}) => {
+export const CreateHabit = ({habits,setHabits,setLastUpdate}) => {
     const [habit, setHabit] = useState({
         public: 'yes',
         frequency: 'daily',
@@ -11,18 +11,20 @@ export const CreateHabit = ({habits,setHabits}) => {
         end_date: ''
     });
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/habits/create_habit/', habit, {
+            const response = await axios.post('http://127.0.0.1:8000/habits/', habit, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     'Content-Type': 'application/json'
                 }});
                 const newHabit = response.data;
                 setHabits([...habits, newHabit]);
-
+                setLastUpdate(Date.now());  
                 
         } catch (error) {
             console.error("An error occurred: ", error);
