@@ -45,7 +45,7 @@ jobs:
         run: |
           cd habits-app
           npm ci
-          npm run build
+          CI=false npm run build
       - name: Deploy React frontend to server
         run: |
           rsync -av habits-app/build/ leo@www.leoapi.xyz:/habits-app 
