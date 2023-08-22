@@ -1,12 +1,7 @@
 
 from fastapi import FastAPI,Request
-from fastapi.testclient import TestClient
-from . import models
-from .database import engine
 from passlib.context import CryptContext
-from .routers import post, user, auth, vote, task
-from pydantic import BaseSettings
-from .config import settings
+from .routers import habits, user, auth
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -20,7 +15,7 @@ pwd_context = CryptContext(schemes = ["bcrypt"], deprecated = "auto")
 app = FastAPI()
 
 #defines all websites that will be allowed to interact with the fasapi application through CORS
-origins = ["https://www.google.com","https://www.leoapi.xyz"]
+origins = ["https://www.google.com","http://127.0.0.1:8000","http://127.0.0.1:3000"]
 #The following block of code adds a middleware to the FastAPI application, allowing CORS for the specified origins, and allowing any methods and headers:
 app.add_middleware(
     CORSMiddleware,
@@ -35,11 +30,9 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 #The following lines include routers from different modules into the main FastAPI application:
-app.include_router(post.router)
+app.include_router(habits.router)
 app.include_router(user.router)
 app.include_router(auth.router)
-app.include_router(vote.router)
-app.include_router(task.router)
 #The last block of code defines a root route ("/") that responds with an HTML file "index.html" using the Jinja2 template engine:
 #This route takes a Request object as a parameter and returns an HTMLResponse with the rendered "index.html" template.
 @app.get("/", response_class = HTMLResponse)

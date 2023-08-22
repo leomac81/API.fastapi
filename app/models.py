@@ -1,18 +1,11 @@
 from .database import Base
-from sqlalchemy import TIMESTAMP, Column, Integer, String, Boolean,text, ForeignKey
+from sqlalchemy import TIMESTAMP, Column, Integer, String, func,text, ForeignKey,DateTime, Boolean, Date,UniqueConstraint
 from sqlalchemy.orm import relationship
+from pydantic import BaseModel
+from typing import List
+from pydantic import BaseModel, Field
+from datetime import datetime
 
-
-class Post(Base):
-    __tablename__ = "posts"
-
-    id = Column(Integer, primary_key = True, nullable = False)
-    title = Column(String, nullable = False)
-    content = Column(String, nullable = False)
-    published = Column(Boolean, server_default = 'True' ,nullable = False)
-    created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
-    owner_id = Column(Integer, ForeignKey("users.id", ondelete= "CASCADE"), nullable = False)
-    owner = relationship("User")
 
 
 class User(Base):
@@ -23,17 +16,31 @@ class User(Base):
     password = Column(String, nullable = False)
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
 
+class Frequency(str):
+    DAILY = "daily"
+    WEEKLY = "weekly"
+    MONTHLY = "monthly"
 
-class Vote(Base):
-    __tablename__='votes'
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
-    post_id = Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), primary_key=True)
+class Habits(Base):
+    __tablename__ = "habits"
+    id= Column(Integer, primary_key=True, nullable = False)
+    public= Column(String, nullable = False)
+    frequency= Column(String, nullable = False)
+    habit_description= Column(String, nullable = False)
+    end_goal= Column(String, nullable = False)
+    end_date= Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
+    owner_id = Column(Integer, ForeignKey("users.id"), nullable = False)
+    created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
+    completions = relationship("HabitCompletion", back_populates="habit", cascade="all, delete-orphan", order_by="HabitCompletion.id")
 
-class Task(Base):
-    __tablename__ = "tasks"
+class HabitCompletion(Base):
+    __tablename__ = "habit_completions"
 
-    id = Column(Integer, primary_key = True, nullable = False)
-    content = Column(String, nullable = False)
-    completed = Column(Boolean, default = False, nullable = False)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    user = relationship("User")
+    id = Column(Integer, primary_key=True, index=True, nullable = False)
+    date = Column(Date, nullable=False)
+    completed = Column(Boolean, nullable=False, default = False)
+    habit_id = Column(Integer, ForeignKey("habits.id", ondelete="CASCADE"))
+    comment = Column(String, nullable = True, default = '')
+    habit = relationship("Habits", back_populates="completions")
+
+    __table_args__ = (UniqueConstraint('date', 'habit_id', name='unique_habit_completion_per_day'),)

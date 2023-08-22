@@ -1,7 +1,51 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from pydantic.types import conint
+from datetime import date
+from enum import Enum
+
+class Frequency(str, Enum):
+    daily = "daily"
+    weekly = "weekly"
+    monthly = "monthly"
+
+class Public(str, Enum):
+    yes = "yes"
+    no = "no"
+
+class HabitCreate(BaseModel):
+    public: Public
+    frequency: Frequency
+    habit_description: str
+    end_goal: str
+    end_date: date
+
+    class Config:
+        orm_mode = True
+
+class HabitCompletion(BaseModel):
+    id: int
+    date: date
+    completed: bool
+    comment: Optional[str] = None
+    habit_id: int
+
+    class Config:
+        orm_mode = True
+
+class Habit(BaseModel):
+    id: int
+    public: Public
+    frequency: Frequency
+    habit_description: str
+    end_goal: str
+    end_date: datetime
+    created_at: datetime
+    completions: List[HabitCompletion] = []
+
+    class Config:
+        orm_mode = True
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -18,26 +62,6 @@ class UserLogin(BaseModel):
     email:EmailStr
     password:str
 
-class PostBase(BaseModel):
-    title:str
-    content:str
-    published : bool = True
-
-class PostCreate(PostBase):
-    pass
-
-class Post(PostBase):
-    id: int
-    created_at:datetime
-    owner_id:int
-    owner:UserOut
-    class Config:
-        orm_mode = True
-
-class PostOut(BaseModel):
-    Post: Post
-    votes: int
-
 class Token(BaseModel):
     access_token:str
     token_type:str
@@ -45,19 +69,8 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     id: Optional[str]
 
-class Vote(BaseModel):
-    post_id:int
-    dir: conint(ge=0, le=1)
+class HabitCompletionCreate(BaseModel):
+    completed: bool
+    comment: str = ""
+    date: date
 
-class TaskBase(BaseModel):
-    content: str
-    completed: bool = False
-
-class TaskCreate(TaskBase):
-    pass
-
-class Task(TaskBase):
-    id: int
-    user_id: int
-    class Config:
-        orm_mode = True
