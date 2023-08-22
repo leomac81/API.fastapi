@@ -25,7 +25,7 @@ export const HabitCompletionPage = () => {
 
   useEffect(() => {
     fetchHabit();
-  }, [habitId]);
+  }, [habitId, fetchHabit]);
 
   const addCompletion = async (completionData) => {
     try {
