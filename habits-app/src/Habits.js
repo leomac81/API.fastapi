@@ -11,7 +11,7 @@ export const Habits = ({ habits, setHabits, isLoggedIn, userEmail, setLastUpdate
         const fetchHabits = async () => {
             try {
                 if (userEmail) {
-                    const response = await axios.get(`http://127.0.0.1:8000/habits/email/${userEmail}`, {
+                    const response = await axios.get(`https://www.leoapi.xyz/habits/email/${userEmail}`, {
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                             'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ export const Habits = ({ habits, setHabits, isLoggedIn, userEmail, setLastUpdate
     const handleDelete = async (id) => {
         if (toBeDeleted.includes(id)) {
             try {
-                await axios.delete(`http://127.0.0.1:8000/habits/${id}`, {
+                await axios.delete(`https://www.leoapi.xyz/habits/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                         'Content-Type': 'application/json'

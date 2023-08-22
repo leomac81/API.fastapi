@@ -17,7 +17,7 @@ export const CreateHabit = ({habits,setHabits,setLastUpdate}) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/habits/', habit, {
+            const response = await axios.post('https://www.leoapi.xyz/habits/', habit, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     'Content-Type': 'application/json'

@@ -8,9 +8,9 @@ export const HabitCompletionPage = () => {
   const [habit, setHabit] = useState(null);
   const [completionError, setCompletionError] = useState(null);
 
-  const fetchHabit = async () => {
+  const fetchHabit = useCallback(async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/habits/${habitId}`, {
+      const response = await axios.get(`https://www.leoapi.xyz/habits/${habitId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json'
@@ -21,15 +21,17 @@ export const HabitCompletionPage = () => {
     } catch (error) {
       console.error("An error occurred while trying to fetch the habit: ", error);
     }
-  };
+  }, [habitId]);
+
 
   useEffect(() => {
     fetchHabit();
-  }, [habitId, fetchHabit]);
+  }, [fetchHabit]);
+
 
   const addCompletion = async (completionData) => {
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/habits/${habitId}/completion`, completionData, {
+      const response = await axios.post(`https://www.leoapi.xyz/habits/${habitId}/completion`, completionData, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json'
@@ -46,7 +48,7 @@ export const HabitCompletionPage = () => {
       } else {
         console.error("An error occurred: ", error);
       }
-  }
+    }
   };
 
   const handleCompletionFormSubmit = (event) => {
@@ -54,9 +56,9 @@ export const HabitCompletionPage = () => {
     const completed = event.target.elements.completed.checked;
     const comment = event.target.elements.comment.value;
     const date = new Date().toISOString().split('T')[0];
-    
-    
-    addCompletion({ comment, completed,date });
+
+
+    addCompletion({ comment, completed, date });
   };
 
   // The page will show a loading message while the habit is being fetched
@@ -75,6 +77,6 @@ export const HabitCompletionPage = () => {
       </form>
       {completionError && <p className="error-banner">{completionError}</p>}
     </div>
-    
+
   );
 };

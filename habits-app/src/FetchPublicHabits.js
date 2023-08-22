@@ -11,7 +11,7 @@ export const FetchPublicHabits = ({lastUpdate}) => {
         // Fetch public habits on component mount
         const fetchPublicHabits = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/habits/public/all', {
+                const response = await axios.get('https://www.leoapi.xyz/habits/public/all', {
                     headers: {
                       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                       'Content-Type': 'application/json'
