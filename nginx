@@ -2,8 +2,11 @@ server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
-        server_name www.leoapi.xyz; # replace with specific domain name like sanjeev.com
-        
+        server_name www.leoapi.xyz; 
+        location /frontend/ {
+        alias /path/to/your/react/build;
+        try_files $uri $uri/ /frontend/index.html;
+        }
         location / {
                 if ($request_method = OPTIONS) {
                 return 204;

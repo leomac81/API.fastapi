@@ -37,6 +37,18 @@ jobs:
     steps:
       - name: pulling git repo
         uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.17.0'
+      - name: Install and Build React app
+        run: |
+          cd habits-app
+          npm ci
+          npm run build
+      - name: Deploy React frontend to server
+        run: |
+          rsync -av habits-app/build/ leo@www.leoapi.xyz:/habits-app 
       - name: intalling python version 3.9
         uses: actions/setup-python@v4
         with:
