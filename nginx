@@ -3,9 +3,6 @@ server {
         listen [::]:80 default_server;
 
         server_name www.leoapi.xyz; 
-        location /frontend/ {
-        alias /path/to/your/react/build;
-        try_files $uri $uri/ /frontend/index.html;
         }
         location / {
                 if ($request_method = OPTIONS) {

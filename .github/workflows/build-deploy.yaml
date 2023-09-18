@@ -49,7 +49,11 @@ jobs:
 
       - name: Deploy React frontend to server
         run: |
-          scp -r build/* leo@178.128.46.187:/app/src/habits-app
+          echo "$PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          scp -i private_key.pem -r build/* leo@178.128.46.187:/app/src/habits-app
+          rm -f private_key.pem
+
         env:
           PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
       - name: intalling python version 3.9
