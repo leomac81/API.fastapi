@@ -46,16 +46,12 @@ jobs:
           cd habits-app
           npm ci
           CI=false npm run build
-      - name: Add SSH key to known_hosts
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          echo "www.leoapi.xyz ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHiAZ0w28jMIHVMwou30hbMT29wOcW20TZcVeB1WUFEo" >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
 
       - name: Deploy React frontend to server
         run: |
-          rsync -av habits-app/build/ leo@www.leoapi.xyz:/habits-app 
+          scp -r build/* leo@:178.128.46.187/app/src/habits-app
+        env:
+          PRIVATE_KEY:${{secrets.SERVER_SSH_KEY}}
       - name: intalling python version 3.9
         uses: actions/setup-python@v4
         with:
