@@ -93,4 +93,3 @@ jobs:
             cd app/src
             git pull
             echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart fastapi_project
-            
