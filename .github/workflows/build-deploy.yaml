@@ -51,7 +51,7 @@ jobs:
         run: |
           scp -r build/* leo@:178.128.46.187/app/src/habits-app
         env:
-          PRIVATE_KEY:${{secrets.SERVER_SSH_KEY}}
+          PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
       - name: intalling python version 3.9
         uses: actions/setup-python@v4
         with:
