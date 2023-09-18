@@ -49,7 +49,7 @@ jobs:
 
       - name: Deploy React frontend to server
         run: |
-          echo "$PRIVATE_KEY" > private_key.pem
+          echo "${{secrets.SERVER_SSH_KEY}}" > private_key.pem
           chmod 600 private_key.pem
           scp -i private_key.pem -r build/* leo@178.128.46.187:/app/src/habits-app
           rm -f private_key.pem
