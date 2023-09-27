@@ -25,9 +25,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 #This line mounts a directory named "static" to serve static files (e.g., images, CSS, JavaScript) under the "/static" path.
-app.mount("/static", StaticFiles(directory="static"), name="static")
+#app.mount("/static", StaticFiles(directory="static"), name="static")
 #This line initializes a Jinja2Templates instance to manage templates located in the "templates" directory.
-templates = Jinja2Templates(directory="templates")
+#templates = Jinja2Templates(directory="templates")
 
 #The following lines include routers from different modules into the main FastAPI application:
 app.include_router(habits.router)
@@ -37,5 +37,6 @@ app.include_router(auth.router)
 #This route takes a Request object as a parameter and returns an HTMLResponse with the rendered "index.html" template.
 @app.get("/", response_class = HTMLResponse)
 async def root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return {"message": "Hello World pushing out to ubuntu"}
+    #return templates.TemplateResponse("index.html", {"request": request})
 
