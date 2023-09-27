@@ -37,25 +37,25 @@ jobs:
     steps:
       - name: pulling git repo
         uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.17.0'
-      - name: Install and Build React app
-        run: |
-          cd habits-app
-          npm ci
-          CI=false npm run build
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '18.17.0'
+      # - name: Install and Build React app
+      #   run: |
+      #     cd habits-app
+      #     npm ci
+      #     CI=false npm run build
 
-      - name: Deploy React frontend to server
-        run: |
-          echo "${{secrets.SERVER_SSH_KEY}}" > private_key.pem
-          chmod 600 private_key.pem
-          scp -o StrictHostKeyChecking=no -i private_key.pem -r build/* leo@178.128.46.187:/app/src/habits-app
-          rm -f private_key.pem
+      # - name: Deploy React frontend to server
+      #   run: |
+      #     echo "${{secrets.SERVER_SSH_KEY}}" > private_key.pem
+      #     chmod 600 private_key.pem
+      #     scp -o StrictHostKeyChecking=no -i private_key.pem -r build/* leo@178.128.46.187:/app/src/habits-app
+      #     rm -f private_key.pem
 
-        env:
-          PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
+      #   env:
+      #     PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
       - name: intalling python version 3.9
         uses: actions/setup-python@v4
         with:
