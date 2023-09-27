@@ -20,11 +20,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 app.include_router(habits.router)
 app.include_router(user.router)
 app.include_router(auth.router)
-@app.get("/")
-async def root():
-    return {"message": "Hello World pushing out to ubuntu"}
+
+@app.get("/", response_class = HTMLResponse)
+async def root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
