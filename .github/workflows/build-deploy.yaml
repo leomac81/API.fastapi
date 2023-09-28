@@ -52,6 +52,9 @@ jobs:
           eval "$(ssh-agent -s)"
           echo "${{secrets.SERVER_SSH_KEY}}" | ssh-add -
           ssh-add -L
+          
+      - name: List files
+        run: ls -la
 
       - name: Deploy React frontend to server
         run: |
