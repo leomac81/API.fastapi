@@ -47,15 +47,15 @@ jobs:
           npm ci
           CI=false npm run build
 
+      - name: Start SSH agent and add key
+        run: |
+          eval "$(ssh-agent -s)"
+          echo "${{secrets.SERVER_SSH_KEY}}" | ssh-add -
+
       - name: Deploy React frontend to server
         run: |
-          echo "${{secrets.SERVER_SSH_KEY}}" > private_key.pem
-          chmod 600 private_key.pem
-          scp -o StrictHostKeyChecking=no -i private_key.pem -r build/* leo@178.128.46.187:/app/src/habits-app
-          rm -f private_key.pem
+          scp -o StrictHostKeyChecking=no -r build/* leo@178.128.46.187:/app/src/habits-app
 
-        env:
-          PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
       - name: intalling python version 3.9
         uses: actions/setup-python@v4
         with:
