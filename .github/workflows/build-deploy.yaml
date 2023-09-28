@@ -34,7 +34,9 @@ jobs:
           CI=false npm run build
         
       - name: List files
-        run: ls -la
+        run: |
+          cd habits-app
+          ls -la
 
       - name: Start SSH agent and add key
         run: |
