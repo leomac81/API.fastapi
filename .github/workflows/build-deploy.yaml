@@ -51,10 +51,11 @@ jobs:
         run: |
           eval "$(ssh-agent -s)"
           echo "${{secrets.SERVER_SSH_KEY}}" | ssh-add -
+          ssh-add -L
 
       - name: Deploy React frontend to server
         run: |
-          scp -o StrictHostKeyChecking=no -r build/* leo@178.128.46.187:/app/src/habits-app
+          scp -v -o StrictHostKeyChecking=no -r build/* leo@178.128.46.187:/app/src/habits-app
 
       - name: intalling python version 3.9
         uses: actions/setup-python@v4
