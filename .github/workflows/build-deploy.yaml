@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "${{secrets.SERVER_SSH_KEY}}" > ~/deploy_key
           chmod 600 ~/deploy_key
-          scp -v -o StrictHostKeyChecking=no -i ~/deploy_key -r build/* leo@178.128.46.187:~/app/src/habits-app
+          scp -v -o StrictHostKeyChecking=no -i ~/deploy_key -r habits-app/build/* leo@178.128.46.187:~/app/src/habits-app
 
       - name: intalling python version 3.9
         uses: actions/setup-python@v4
