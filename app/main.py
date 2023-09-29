@@ -20,14 +20,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# app.mount("/static", StaticFiles(directory="/home/leo/app/src/habits-app/build"), name="static")
-# templates = Jinja2Templates(directory="/home/leo/app/src/habits-app/build")
+app.mount("/static", StaticFiles(directory="/home/leo/app/src/habits-app/build"), name="static")
+templates = Jinja2Templates(directory="/home/leo/app/src/habits-app/build")
 
 app.include_router(habits.router)
 app.include_router(user.router)
 app.include_router(auth.router)
 
-# @app.get("/", response_class = HTMLResponse)
-# async def root(request: Request):
-#     return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/", response_class = HTMLResponse)
+async def root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
