@@ -29,5 +29,5 @@ app.include_router(auth.router)
 
 @app.get("/", response_class = HTMLResponse)
 async def root(request: Request):
-    return templates.TemplateResponse("/home/leo/app/src/habits-app/public/index.html", {"request": request})
+    return templates.TemplateResponse("/home/leo/app/src/habits-app/public", {"request": request})
 
