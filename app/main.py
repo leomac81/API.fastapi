@@ -20,7 +20,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="~/app/src/habits-app/build"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 app.include_router(habits.router)
