@@ -32,21 +32,13 @@ jobs:
           cd habits-app
           npm ci
           CI=false npm run build
-        
-      - name: List files
-        run: |
-          cd habits-app
-          ls -la
 
       - name: Start SSH agent and add key
         run: |
           eval "$(ssh-agent -s)"
           echo "${{secrets.SERVER_SSH_KEY}}" | ssh-add -
           ssh-add -L
-          
-      - name: List files
-        run: ls -la
-
+      
       - name: Deploy React frontend to server
         run: |
           echo "${{secrets.SERVER_SSH_KEY}}" > ~/deploy_key

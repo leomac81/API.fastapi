@@ -2,28 +2,10 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
-    server_name www.leoapi.xyz; 
-
-    root /home/leo/app/src/habits-app/build; # point to the built React app
+    server_name www.leoapi.xyz;
 
     location / {
-        try_files $uri $uri/ /index.html;  # This will also handle SPA routes by defaulting to index.html
-    }
-
-    location /login {
-        proxy_pass http://localhost:8000;
-        include proxy_params;  # Standard proxy settings, this can be elsewhere in your nginx configuration
-    }
-
-    location /habits {
         proxy_pass http://localhost:8000;
         include proxy_params;
     }
-
-    location /users {
-        proxy_pass http://localhost:8000;
-        include proxy_params;
-    }
-
-    # Add any other specific paths that need to be routed to the FastAPI server here.
 }
