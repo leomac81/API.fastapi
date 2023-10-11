@@ -10,7 +10,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://leoapi.xyz/api/login', {
+      const response = await axios.post('https://leoapi.xyz/api/login', {
         username: email,
         password: password
       });
