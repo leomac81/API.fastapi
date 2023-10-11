@@ -32,6 +32,24 @@ jobs:
       - name: install all dependencies
         run: pip install -r requirements.txt
 
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+        
+      - name: Install dependencies
+        run: |
+          cd habits-app
+          npm ci
+        
+      - name: Build
+        run: npm run build
   deploy:
   
     runs-on: ubuntu-latest
@@ -49,3 +67,20 @@ jobs:
             cd app/src
             git pull
             echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart fastapi_project
+  deploy-frontend:
+    needs: [build-frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Deploy to Ubuntu server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.PROD_HOST}}
+          username: ${{secrets.PROD_USERNAME}}
+          password: ${{secrets.PROD_PASSWORD}}
+          script: |
+            cd habits-app
+            git pull
+            cp -r build/* ~/app/src/habits-app/build
