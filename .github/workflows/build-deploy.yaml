@@ -73,20 +73,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
-      - name: Deploy to Ubuntu server
+      - name: Deploy React frontend to server
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.PROD_HOST}}
           username: ${{secrets.PROD_USERNAME}}
-          password: ${{secrets.PROD_PASSWORD}}
+          key: ${{secrets.SERVER_SSH_KEY}}
           script: |
-            cd habits-app
-            eval "$(ssh-agent -s)"
-            echo "${{secrets.SERVER_SSH_KEY}}" | ssh-add -
-            ssh-add -L
-      
-      - name: Deploy React frontend to server
-        run: |
-          echo "${{secrets.SERVER_SSH_KEY}}" > ~/deploy_key
-          chmod 600 ~/deploy_key
-          scp -v -o StrictHostKeyChecking=no -i ~/deploy_key -r habits-app/build/* leo@178.128.46.187:~/app/src/habits-app/build
+            mkdir -p ~/app/src/habits-app/build
+            scp -r ./habits-app/build/* ${{secrets.PROD_USERNAME}}@${{secrets.PROD_HOST}}:~/app/src/habits-app/build
