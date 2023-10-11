@@ -89,6 +89,9 @@ jobs:
         with:
           name: build-artifacts
           path: habits-app/build/
+      - name: Correct File Ownership
+        run: ssh -i ~/deploy_key leo@178.128.46.187 "sudo chown -R leo:leo ~/app/src/habits-app/build"
+
       - name: Deploy React frontend to server
         run: |
           ls -la
