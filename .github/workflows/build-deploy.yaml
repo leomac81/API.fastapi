@@ -67,6 +67,7 @@ jobs:
             git pull
             echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart fastapi_project
   deploy-frontend:
+  
     needs: [build-frontend]
     runs-on: ubuntu-latest
     steps:
