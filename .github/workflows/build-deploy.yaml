@@ -88,19 +88,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifacts
-          path: habits-app/build/
-      - name: Correct File Ownership
-        run: |
-          echo "${{secrets.SERVER_SSH_KEY}}" > ~/deploy_key
-          chmod 600 ~/deploy_key
-          ssh -i ~/deploy_key leo@178.128.46.187 "sudo chown -R leo:leo ~/app/src/habits-app/build"
+          path: habits-app/build/sudo chmod -R 755 /home/leo/app/src/habits-app/build/""
+
 
       - name: Deploy React frontend to server
         run: |
-          ls -la
-          echo "-----------------------------------------"
-          ls -la habits-app
           echo "${{secrets.SERVER_SSH_KEY}}" > ~/deploy_key
           chmod 600 ~/deploy_key
           scp -v -o StrictHostKeyChecking=no -i ~/deploy_key -r habits-app/build/* leo@178.128.46.187:~/app/src/habits-app/build
+          ssh -v -o StrictHostKeyChecking=no -i ~/deploy_key leo@178.128.46.187 "sudo /bin/chown -R leo:leo /home/leo/app/src/habits-app/build/"
           
