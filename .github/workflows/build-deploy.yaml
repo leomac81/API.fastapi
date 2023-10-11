@@ -88,7 +88,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifacts
-          path: habits-app/build/sudo chmod -R 755 /home/leo/app/src/habits-app/build/""
+          path: habits-app/build/
 
 
       - name: Deploy React frontend to server
