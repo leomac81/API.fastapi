@@ -52,7 +52,7 @@ jobs:
   deploy-backend:
   
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [build-backend]
     environment:
       name: production
     steps:
