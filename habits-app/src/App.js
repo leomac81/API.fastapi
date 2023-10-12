@@ -1,8 +1,8 @@
 
 import React, { useState } from "react";
 import './App.css';
-import { Login } from "./LoginForm";
-import { Register } from "./RegisterForm";
+import { Login } from "./components/LoginForm";
+import { Register } from "./components/RegisterForm";
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 function App() {
