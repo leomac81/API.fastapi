@@ -33,28 +33,9 @@ function App() {
 
   return (
     <div className="App">
-      {isLoggedIn && <TopBar title="Habit Tracker" onLogout={handleLogout} />}
-      <Routes>
-        <Route path="/habit/gethabits/:habitId" element={<HabitCompletionPage />} />
-
-        <Route path="/login" element={<Login onFormSwitch={toggleForm} onLogin={handleLogin} />} />
-        <Route path="/register" element={<Register onFormSwitch={toggleForm} />} />
-        <Route path="/" element={
-          isLoggedIn ? (
-            <>
-              <div className="habits-layout">
-                <Habits habits={habits} setHabits={setHabits} isLoggedIn={isLoggedIn} userEmail={userEmail} setLastUpdate={setLastUpdate}/>
-                <FetchPublicHabits lastUpdate={lastUpdate}/>
-                <CreateHabit habits={habits} setHabits={setHabits} setLastUpdate={setLastUpdate}/>
-              </div>
-            </>
-          ) : (
-            currentForm === "login" ?
-              <Navigate to="/login" replace /> :
-              <Navigate to="/register" replace />
-          )
-        } />
-      </Routes>
+      {
+        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
+      }
     </div>
   );
 }
