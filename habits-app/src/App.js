@@ -1,13 +1,8 @@
 
 import React, { useState } from "react";
 import './App.css';
-import { Login } from "./Login";
-import { Register } from "./Register";
-import { Habits } from "./Habits";
-import { CreateHabit } from "./CreateHabits";
-import { TopBar } from './TopBar';
-import { HabitCompletionPage } from "./HabitCompletionPage";
-import  {FetchPublicHabits} from "./FetchPublicHabits"
+import { Login } from "./LoginForm";
+import { Register } from "./RegisterForm";
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 function App() {
