@@ -9,11 +9,11 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+        formData.append('username', email); // FastAPI expects 'username', not 'email'
+        formData.append('password', password);
     try {
-      const response = await axios.post('https://leoapi.xyz/api/login', {
-        username: email,
-        password: password
-      });
+      const response = await axios.post('https://leoapi.xyz/api/login', formData);
       localStorage.setItem('token', response.data.access_token);
       // Redirect or update UI as user is logged in
     } catch (error) {
