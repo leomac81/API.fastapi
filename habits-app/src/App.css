@@ -1,0 +1,75 @@
+.App {
+    text-align: center;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    color: white;
+    background-image: linear-gradient(79deg, #7439db, #C66FBC 48%, #F7944D);
+    padding-top: 60px; /* Adjust based on the height of your top bar + desired space */
+    flex-direction: row; /* Change from default value of column to row to align children horizontally */
+    justify-content: flex-start;
+  
+  }
+  
+  .auth-form-container, .login-form, .register-form {
+    display: flex;
+    flex-direction: column;
+    
+    
+  }
+  
+  @media screen and (min-width: 600px) {
+    .auth-form-container {
+      padding: 5rem;
+      border: 1px solid white;
+      border-radius: 10px;
+      margin: 0.5rem;
+      width: max-content;   /* This makes sure the width is only as wide as the content */
+      margin: auto;         
+      
+    }
+  }
+  
+  label {
+    text-align: left;
+    padding: 0.25rem 0;
+  }
+  
+  input {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  button {
+    border: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #7439db;
+  }
+  
+  .link-btn {
+    background: none;
+    color: white;
+    text-decoration: underline;
+  }
+  
+  .error-banner {
+    color: #F7944D;
+    background-color: #FCCBCB;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .habits-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%; /* Ensures this container takes up the full width available */
+  }
