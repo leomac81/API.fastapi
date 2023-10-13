@@ -8,7 +8,7 @@ const HabitPage = () => {
     const [habit, setHabit] = useState(null);
     const [comment, setComment] = useState('');
     const [completed, setCompleted] = useState(false);
-
+    const [error, setError] = useState('');
     useEffect(() => {
         const fetchHabit = async () => {
             try {
