@@ -1,46 +1,46 @@
-import React, { useState } from "react";
+// src/components/Signup.js
+import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export const Register = (props) => { // remove async here
-    const [email, setEmail] = useState('');
-    const [password, setPass] = useState('');
+const Signup = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-
-    const handleSubmit = async (e) => { // add async here
-        e.preventDefault();
-        
-        try {
-            const response = await axios.post('https://leoapi.xyz/api/users/', { 
-                email: email, 
-                password: password 
-            }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-        // check if the registration was successful
-        if (response.status === 201 || response.status === 200) {
-            // If successful, switch back to the login form
-            props.onFormSwitch('login');
-        }
-            
-        } catch (error) {
-            console.error("An error occurred while trying to create a new user: ", error);
-        }
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const newUser = {
+      email: email,
+      password: password
+    };
+    try {
+      await axios.post('https://leoapi.xyz/api/users/', newUser);
+      navigate('/'); // Redirecting to the login page after successful signup
+    } catch (error) {
+      setError('Failed to create account');
     }
+  };
 
-    return (
-        <div className="auth-form-container">
-            <h2>Register</h2>
-        <form className="register-form" onSubmit={handleSubmit}>
-            <label htmlFor="email">email</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-            <label htmlFor="password">password</label>
-            <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-            <button type="submit">Register</button>
-        </form>
-        <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
-    </div>
-    )
-}
+  return (
+    <form onSubmit={handleSignup}>
+      {error && <p>{error}</p>}
+      <input 
+        type="email" 
+        placeholder="Email" 
+        value={email} 
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input 
+        type="password" 
+        placeholder="Password" 
+        value={password} 
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="submit">Signup</button>
+    </form>
+  );
+};
+
+export default Signup;
