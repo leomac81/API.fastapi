@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const HabitPage = () => {
     const { habitId } = useParams(); // Extract habitId from URL
-    const history = useHistory();
+    const navigate = useNavigate();
     const [habit, setHabit] = useState(null);
     const [comment, setComment] = useState('');
     const [completed, setCompleted] = useState(false);
@@ -52,7 +52,7 @@ const HabitPage = () => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            history.push('/'); // Redirect to homepage after deletion
+            navigate('/'); // Redirect to homepage after deletion
         } catch (error) {
             setError('Failed to delete habit');
         }

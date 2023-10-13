@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const HabitList = ({ userEmail , refreshKey}) => {
+const HabitList = ({ userEmail, refreshKey }) => {
   const [habits, setHabits] = useState([]);
   const [error, setError] = useState('');
 
@@ -34,12 +34,13 @@ const HabitList = ({ userEmail , refreshKey}) => {
       {habits.length === 0 && <p>No habits found. Start by adding a new one!</p>}
       <div className="habitsContainer">
         {habits.map((habit) => (
-          
+
           <div key={habit.id} className="habitCard">
             <li key={habit.id}>
-                        <Link to={`https://leoapi.xyz/api/habits/${habit.id}`}>
-                            {habit.habit_description}
-                        </Link>
+              <Link to={`/habits/${habit.id}`}>
+                {habit.habit_description}
+              </Link>
+
             </li>
             <h2>{habit.habit_description}</h2>
             <p>End Goal: {habit.end_goal}</p>
@@ -49,7 +50,7 @@ const HabitList = ({ userEmail , refreshKey}) => {
             <ul>
               {habit.completions.map((completion) => (
                 <li key={completion.id}>
-                  {new Date(completion.date).toLocaleDateString()} - 
+                  {new Date(completion.date).toLocaleDateString()} -
                   {completion.completed ? 'Completed' : 'Not Completed'}
                   {completion.comment && `: ${completion.comment}`}
                 </li>
