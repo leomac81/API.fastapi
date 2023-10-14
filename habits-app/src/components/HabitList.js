@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import CompletionGrid from './CompletionGrid';
 
 const HabitList = ({ userEmail, refreshKey }) => {
   const [habits, setHabits] = useState([]);
@@ -46,16 +47,7 @@ const HabitList = ({ userEmail, refreshKey }) => {
             <p>End Goal: {habit.end_goal}</p>
             <p>Frequency: {habit.frequency}</p>
             <p>End Date: {new Date(habit.end_date).toLocaleDateString()}</p>
-            <h3>Recent Completions:</h3>
-            <ul>
-              {habit.completions.map((completion) => (
-                <li key={completion.id}>
-                  {new Date(completion.date).toLocaleDateString()} -
-                  {completion.completed ? 'Completed' : 'Not Completed'}
-                  {completion.comment && `: ${completion.comment}`}
-                </li>
-              ))}
-            </ul>
+            {habit && <CompletionGrid habit={habit} />}
           </div>
         ))}
       </div>

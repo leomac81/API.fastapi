@@ -1,7 +1,7 @@
 // src/components/Signup.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -39,6 +39,7 @@ const Signup = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit">Signup</button>
+      <Link to="/">Already have an account? Login here</Link>
     </form>
   );
 };

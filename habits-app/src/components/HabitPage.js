@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import CompletionGrid from './CompletionGrid';
 
 const HabitPage = () => {
     const { habitId } = useParams(); // Extract habitId from URL
@@ -8,7 +9,8 @@ const HabitPage = () => {
     const [habit, setHabit] = useState(null);
     const [comment, setComment] = useState('');
     const [completed, setCompleted] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState('')
+    const currentDate = new Date().toISOString().split('T')[0];
     useEffect(() => {
         const fetchHabit = async () => {
             try {
@@ -30,7 +32,8 @@ const HabitPage = () => {
         try {
             await axios.post(`https://leoapi.xyz/api/habits/${habitId}/completion`, {
                 comment,
-                completed
+                completed,
+                date: currentDate
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -38,10 +41,11 @@ const HabitPage = () => {
             });
             // Refresh habit data or provide user feedback...
             setComment('');
-            setCompleted(false);
+            setCompleted(true);
             setError(null);
+            navigate('/homepage');
         } catch (error) {
-            setError('Failed to add completion');
+            setError('Failed to add completion'+error);
         }
     };
 
@@ -52,7 +56,7 @@ const HabitPage = () => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            navigate('/'); // Redirect to homepage after deletion
+            navigate('/homepage'); // Redirect to homepage after deletion
         } catch (error) {
             setError('Failed to delete habit');
         }
@@ -80,6 +84,7 @@ const HabitPage = () => {
             <button onClick={handleDelete}>Delete Habit</button>
             
             {error && <p>{error}</p>}
+            {habit && <CompletionGrid habit={habit} />}
         </div>
     );
 };

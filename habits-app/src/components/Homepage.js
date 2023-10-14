@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import HabitList from './HabitList';
 import CreateHabit from './CreateHabit';
+import RecentHabits from './RecentHabits';
 
 const Homepage = () => {
     const userEmail = localStorage.getItem('userEmail');
@@ -13,9 +14,10 @@ const Homepage = () => {
 
     return (
       <div>
-        <h1>Welcome to the Homepage</h1>
+        <h1>Create and track your habits here</h1>
         <HabitList userEmail={userEmail} refreshKey={refreshKey} />
         <CreateHabit onHabitCreated={refreshHabits} />
+        <RecentHabits />
       </div>
     );
   };
