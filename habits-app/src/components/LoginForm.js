@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link} from 'react-router-dom';
 import './LoginForm.css';
+import TopBar from './TopBar';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +27,10 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <div className="login-container">
+      <TopBar />
+      <h1>Make Habit-Building a Habit!</h1>
+    <form onSubmit={handleLogin} className="login-form">
       {error && <p>{error}</p>}
       <input 
         type="email" 
@@ -39,9 +44,10 @@ const Login = () => {
         value={password} 
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Login</button>
-      <Link to="/signup">Create an Account</Link>
+      <button type="login">Login</button>
+      <button type="returntosignup" onClick={() => navigate('/signup')}>Create an Account</button>
     </form>
+    </div>
   );
 };
 

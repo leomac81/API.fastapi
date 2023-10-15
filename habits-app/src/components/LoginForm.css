@@ -1,11 +1,13 @@
 form {
-    max-width: 300px;
-    margin: 50px auto;
-    padding: 10px 20px;
-    background: #f4f7f8;
-    border-radius: 8px;
-  }
-  
+  max-width: 300px;
+  margin: 50px auto;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+  .login-form {
+    background-color: #d8d8d8;
+   
+}
   h1 {
     margin: 0 0 30px 0;
     text-align: center;
@@ -13,28 +15,43 @@ form {
   
   input[type="email"],
   input[type="password"],
-  button[type="submit"] {
+  button[type="login"] {
     width: 100%;
-    border: 1px solid #ddd;
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 5px;
+    border: 1px solid #00b0dc;
   }
   
   input::placeholder {
     color: #ddd;
   }
   
-  button[type="submit"] {
-    background-color: #5cb85c;
+  button[type="login"] {
+    background-color: #00b9e7;
     color: white;
     cursor: pointer;
   }
   
-  button[type="submit"]:hover {
-    background-color: #4cae4c;
+  button[type="login"]:hover {
+    background-color: #00b9e7;
+    border: 1px solid #00b0dc;
   }
   
+  button[type="returntosignup"] {
+    width: 100%;
+    border: 1px solid #00b9e7;
+    background-color: #00b9e7;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button[type="returntosignup"]:hover {
+    background-color: #00b0dc;
+    border: 1px solid #00b0dc;
+}
+
   p {
     color: red;
   }

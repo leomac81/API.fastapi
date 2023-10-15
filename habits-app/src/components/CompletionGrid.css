@@ -6,12 +6,12 @@ table {
 
 td {
     width: calc(100% / 7);
-    height: 30px;
-    line-height: 30px;
+    height: calc(100% / 7); /* make the height relative to width, maintaining square shape */
+    line-height: 1.2;
     text-align: center;
     vertical-align: middle;
     border: 1px solid #ddd;
-    font-size: 1.5em;
+    font-size: 1em; /* Adjust font size as required */
 }
 
 td:nth-child(7),

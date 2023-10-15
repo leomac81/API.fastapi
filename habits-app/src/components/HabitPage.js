@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CompletionGrid from './CompletionGrid';
+import TopBar from './TopBar';
 import './HabitPage.css'
 
 const HabitPage = () => {
@@ -12,6 +13,8 @@ const HabitPage = () => {
     const [completed, setCompleted] = useState(false);
     const [error, setError] = useState('')
     const currentDate = new Date().toISOString().split('T')[0];
+    const [confirmDelete, setConfirmDelete] = useState(false);
+
     useEffect(() => {
         const fetchHabit = async () => {
             try {
@@ -51,6 +54,10 @@ const HabitPage = () => {
     };
 
     const handleDelete = async () => {
+        if (!confirmDelete) {
+            setConfirmDelete(true); 
+            return; 
+        }
         try {
             await axios.delete(`https://leoapi.xyz/api/habits/${habitId}`, {
                 headers: {
@@ -67,6 +74,7 @@ const HabitPage = () => {
 
     return (
         <div>
+            <TopBar />
             <h1>{habit.habit_description}</h1>
             
             <form onSubmit={handleCompletion}>
@@ -81,7 +89,9 @@ const HabitPage = () => {
                 <button type="submit">Add Completion</button>
             </form>
             
-            <button onClick={handleDelete}>Delete Habit</button>
+            <button onClick={handleDelete}>
+                {confirmDelete ? "Confirm Deletion?" : "Delete Habit"}
+            </button>
             
             {error && <p>{error}</p>}
             {habit && <CompletionGrid habit={habit} />}
