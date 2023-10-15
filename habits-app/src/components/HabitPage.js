@@ -73,7 +73,7 @@ const HabitPage = () => {
     if (!habit) return <p>Loading...</p>;
 
     return (
-        <div>
+        <div className='habit-container'>
             <TopBar />
             <h1>{habit.habit_description}</h1>
             

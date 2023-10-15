@@ -1,0 +1,12 @@
+/* src/components/Dropdown.css */
+.dropdown {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .dropdown-content {
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  

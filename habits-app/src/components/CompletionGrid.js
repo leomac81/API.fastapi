@@ -27,9 +27,9 @@ const CompletionGrid = ({ habit }) => {
                 <td key={date}>
                   {completionsMap[date] 
                     ? completionsMap[date].completed 
-                      ? <span className="completed">✅</span>
-                      : <span className="not-completed">❌</span>
-                    : <span className="no-data">🔳</span>}
+                      ? <span className="completed">🟩</span>
+                      : <span className="not-completed">🟥</span>
+                    : <span className="no-data">🟥</span>}
                 </td>
               ))}
             </tr>
