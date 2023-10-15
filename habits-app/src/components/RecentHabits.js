@@ -25,7 +25,7 @@ const RecentHabits = () => {
 
     return (
         <div>
-            <h2>Recent Habits</h2>
+            <h1>Recent Habits</h1>
             <div className="recentHabitsContainer">
             <ul>
                 {recentHabits.map(habit => (

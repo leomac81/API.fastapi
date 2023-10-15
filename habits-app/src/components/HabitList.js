@@ -36,20 +36,15 @@ const HabitList = ({ userEmail, refreshKey }) => {
       {habits.length === 0 && <p>No habits found. Start by adding a new one!</p>}
       <div className="habitsContainer">
         {habits.map((habit) => (
-
-          <div key={habit.id} className="habitCard">
-            <li key={habit.id}>
-              <Link to={`/habits/${habit.id}`}>
-                {habit.habit_description}
-              </Link>
-
-            </li>
-            <h2>{habit.habit_description}</h2>
-            <p>End Goal: {habit.end_goal}</p>
-            <p>Frequency: {habit.frequency}</p>
-            <p>End Date: {new Date(habit.end_date).toLocaleDateString()}</p>
-            {habit && <CompletionGrid habit={habit} />}
-          </div>
+          <Link to={`/habits/${habit.id}`} key={habit.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="habitCard">
+              <h2>{habit.habit_description}</h2>
+              <p>End Goal: {habit.end_goal}</p>
+              <p>Frequency: {habit.frequency}</p>
+              <p>End Date: {new Date(habit.end_date).toLocaleDateString()}</p>
+              {habit && <CompletionGrid habit={habit} />}
+            </div>
+          </Link>
         ))}
       </div>
     </div>
