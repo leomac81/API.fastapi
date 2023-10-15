@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import CompletionGrid from './CompletionGrid';
+import './RecentHabits.css'
 
 const RecentHabits = () => {
     const [recentHabits, setRecentHabits] = useState([]);
@@ -24,12 +26,18 @@ const RecentHabits = () => {
     return (
         <div>
             <h2>Recent Habits</h2>
+            <div className="recentHabitsContainer">
             <ul>
                 {recentHabits.map(habit => (
-                    <li key={habit.id}>{habit.habit_description}</li>
+                    <div key={habit.id} className="habitCard">
+                        <li>{habit.habit_description}</li>
+                        <CompletionGrid habit={habit} />
+                    </div>
                 ))}
             </ul>
+            </div>
         </div>
+        
     );
 };
 

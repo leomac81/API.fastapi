@@ -5,6 +5,7 @@ import Login from './components/LoginForm';
 import Signup from './components/RegisterForm';
 import Homepage from './components/Homepage';
 import HabitPage from './components/HabitPage';
+import './App.css';
 
 function App() {
   return (

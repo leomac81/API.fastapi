@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CompletionGrid from './CompletionGrid';
+import './HabitPage.css'
 
 const HabitPage = () => {
     const { habitId } = useParams(); // Extract habitId from URL
@@ -67,7 +68,6 @@ const HabitPage = () => {
     return (
         <div>
             <h1>{habit.habit_description}</h1>
-            {/* Other habit details */}
             
             <form onSubmit={handleCompletion}>
                 <label>

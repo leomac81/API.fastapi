@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+td {
+    width: calc(100% / 7);
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    font-size: 1.5em;
+}
+
+td:nth-child(7),
+td:nth-child(14) {
+    color: #999;
+}
+
+/* Styles for different states */
+td > .completed {
+    color: #4CAF50; /* Green for completed */
+}
+
+td > .not-completed {
+    color: #FF5252; /* Red for not completed */
+}
+
+td > .no-data {
+    color: #BDBDBD; /* Gray for no data */
+}

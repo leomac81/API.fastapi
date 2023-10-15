@@ -1,4 +1,5 @@
 import React from 'react';
+import './CompletionGrid.css'
 
 const generatePastDates = (numDays) => {
     const dates = Array.from({ length: numDays }, (_, i) => {
@@ -26,9 +27,9 @@ const CompletionGrid = ({ habit }) => {
                 <td key={date}>
                   {completionsMap[date] 
                     ? completionsMap[date].completed 
-                      ? '✅' 
-                      : '❌'
-                    : '🔳'}
+                      ? <span className="completed">✅</span>
+                      : <span className="not-completed">❌</span>
+                    : <span className="no-data">🔳</span>}
                 </td>
               ))}
             </tr>

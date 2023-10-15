@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CompletionGrid from './CompletionGrid';
+import './HabitList.css'
 
 const HabitList = ({ userEmail, refreshKey }) => {
   const [habits, setHabits] = useState([]);

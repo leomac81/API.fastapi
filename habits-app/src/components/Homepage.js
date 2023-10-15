@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import HabitList from './HabitList';
 import CreateHabit from './CreateHabit';
 import RecentHabits from './RecentHabits';
-
+import './Homepage.css'
 const Homepage = () => {
     const userEmail = localStorage.getItem('userEmail');
     const [refreshKey, setRefreshKey] = useState(0);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './CreateHabit.css'
 
 const CreateHabit = ({onHabitCreated}) => {
   const [formData, setFormData] = useState({

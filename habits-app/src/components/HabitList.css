@@ -1,0 +1,70 @@
+div {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #666;
+    font-size: 1em;
+}
+
+.error {
+    color: red;
+    margin: 10px 0;
+}
+
+.habitsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.habitCard {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 15px;
+    width: calc(33% - 20px);
+}
+
+.habitCard li {
+    list-style-type: none;
+}
+
+.habitCard a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.habitCard h2 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.habitCard p {
+    margin-bottom: 5px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .habitCard {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .habitCard {
+        width: calc(100% - 20px);
+    }
+}

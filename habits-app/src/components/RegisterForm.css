@@ -1,0 +1,52 @@
+form {
+    max-width: 300px;
+    margin: 50px auto;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+  }
+  
+  h1 {
+    margin: 0 0 30px 0;
+    text-align: center;
+  }
+  
+  input[type="email"],
+  input[type="password"],
+  button[type="submit"] {
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  input::placeholder {
+    color: #ddd;
+  }
+  
+  button[type="submit"] {
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #4cae4c;
+  }
+  
+  p {
+    color: red;
+  }
+  
+  Link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  Link:hover {
+    text-decoration: underline;
+  }
+  
