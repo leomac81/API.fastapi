@@ -31,7 +31,6 @@ const RecentHabits = () => {
                 {recentHabits.map(habit => (
                     <div key={habit.id} className="habitCard">
                         <li>{habit.habit_description}</li>
-                        <p>Owner: {habit.owner_email}</p>
                         <CompletionGrid habit={habit} />
                     </div>
                 ))}
