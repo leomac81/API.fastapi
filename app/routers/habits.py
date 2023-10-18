@@ -131,7 +131,8 @@ async def read_public_habits(db: Session = Depends(get_db),
     current_date = date.today()
     completions_subquery = db.query(models.HabitCompletion).filter(models.HabitCompletion.date <= current_date).subquery()
 
-    habits = db.query(models.Habits).outerjoin(completions_subquery, completions_subquery.c.habit_id == models.Habits.id).filter(
+    habits = db.query(models.Habits).options(joinedload(models.Habits.owner_email)).outerjoin(completions_subquery, completions_subquery.c.habit_id == models.Habits.id).filter(
         models.Habits.public == 'yes').order_by(models.Habits.created_at.desc()).limit(10).all()
-
+    for habit in habits:
+        habit.owner_email = habit.owner.email
     return habits

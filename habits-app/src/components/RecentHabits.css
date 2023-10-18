@@ -1,0 +1,49 @@
+.recentHabitsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.habitCard {
+    background-color: #f0f8ff;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    width: calc(100% / 7);
+    text-align: center;
+    padding: 5px;
+    font-size: 1.5em;
+}
+
+/* Add this if not already in other CSS for your project */
+button:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid #4CAF50;
+}
