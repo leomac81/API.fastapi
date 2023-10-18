@@ -28,7 +28,7 @@ const Signup = () => {
   return (
     <div className="signup-container">
       <TopBar />
-      <h1>Welcome to HabiTrack!</h1>
+      <h1>Make Habit-Building a Habit!</h1>
       <form onSubmit={handleSignup} className="register-form">
         {error && <p>{error}</p>}
         <input
