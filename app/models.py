@@ -5,6 +5,17 @@ from pydantic import BaseModel
 from typing import List
 from pydantic import BaseModel, Field
 from datetime import datetime
+from sqlalchemy import DateTime
+
+class PasswordReset(Base):
+    __tablename__ = "password_resets"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    reset_token = Column(String, nullable=False, unique=True)
+    expires_at = Column(DateTime, nullable=False)
+
+    user = relationship("User", back_populates="password_resets")
 
 
 
@@ -15,6 +26,8 @@ class User(Base):
     email = Column(String, nullable = False, unique = True)
     password = Column(String, nullable = False)
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
+    
+    password_resets = relationship("PasswordReset", back_populates="user", cascade="all, delete-orphan")
 
 class Frequency(str):
     DAILY = "daily"
@@ -31,6 +44,7 @@ class Habits(Base):
     end_date= Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
     owner_id = Column(Integer, ForeignKey("users.id"), nullable = False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
+    
     completions = relationship("HabitCompletion", back_populates="habit", cascade="all, delete-orphan", order_by="HabitCompletion.id")
 
 class HabitCompletion(Base):
