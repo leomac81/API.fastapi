@@ -28,6 +28,7 @@ class User(Base):
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
     
     password_resets = relationship("PasswordReset", back_populates="user", cascade="all, delete-orphan")
+    habit = relationship("Habits", back_populates="owner_email")
 
 class Frequency(str):
     DAILY = "daily"
@@ -46,6 +47,8 @@ class Habits(Base):
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable = False)
     
     completions = relationship("HabitCompletion", back_populates="habit", cascade="all, delete-orphan", order_by="HabitCompletion.id")
+    owner = relationship("User", back_populates="habit")
+
 
 class HabitCompletion(Base):
     __tablename__ = "habit_completions"

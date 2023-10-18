@@ -29,7 +29,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <TopBar />
-      <h1>Make Habit-Building a Habit!</h1>
+      <h1>The Power of Habits</h1>
     <form onSubmit={handleLogin} className="login-form">
       {error && <p>{error}</p>}
       <input 

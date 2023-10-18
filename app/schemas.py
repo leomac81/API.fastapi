@@ -43,6 +43,7 @@ class Habit(BaseModel):
     end_date: datetime
     created_at: datetime
     completions: List[HabitCompletion] = []
+    owner_email: str
 
     class Config:
         orm_mode = True
